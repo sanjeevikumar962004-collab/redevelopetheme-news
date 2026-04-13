@@ -559,7 +559,7 @@
             <!-- Slide 2 -->
             <div class="featured-card feat-slide" data-cat="tech" style="display:none;">
                 <div class="featured-card-image" style="overflow:hidden;">
-                    <img src="assets/images/feat_tech.webp" alt="Technology Story"/>
+                    <img src="assets/images/pexels-leeloothefirst-8372666.webp" alt="Technology Story"/>
                 </div>
                 <div class="featured-card-content">
                     <div>
@@ -581,7 +581,7 @@
             <!-- Slide 3 -->
             <div class="featured-card feat-slide" data-cat="environment" style="display:none;">
                 <div class="featured-card-image" style="overflow:hidden;">
-                    <img src="assets/images/feat_env.webp" alt="Environment Story"/>
+                    <img src="assets/images/slide.webp" alt="Environment Story"/>
                 </div>
                 <div class="featured-card-content">
                     <div>
@@ -603,7 +603,7 @@
             <!-- Slide 4 (New: Politics) -->
             <div class="featured-card feat-slide" data-cat="politics" style="display:none;">
                 <div class="featured-card-image" style="overflow:hidden;">
-                    <img src="assets/images/feat_politics.webp" alt="Politics Story"/>
+                    <img src="assets/images/pexels-mikhail-nilov-8846952.webp" alt="Politics Story"/>
                 </div>
                 <div class="featured-card-content">
                     <div>
@@ -625,7 +625,7 @@
             <!-- Slide 5 (New: Culture) -->
             <div class="featured-card feat-slide" data-cat="culture" style="display:none;">
                 <div class="featured-card-image" style="overflow:hidden;">
-                    <img src="assets/images/feat_culture.webp" alt="Culture Story"/>
+                    <img src="assets/images/img-post3.webp" alt="Culture Story"/>
                 </div>
                 <div class="featured-card-content">
                     <div>
@@ -657,7 +657,7 @@
             <!-- Card 1 -->
             <div class="article-card" data-cat="local">
                 <div style="overflow:hidden;">
-                    <img src="assets/images/grid_local.webp" class="article-card-img" alt="Article"/>
+                    <img src="assets/images/img-post1.webp" class="article-card-img" alt="Article"/>
                 </div>
                 <div class="article-card-body">
                     <div class="article-card-category">Local</div>
@@ -672,7 +672,7 @@
             <!-- Card 2 -->
             <div class="article-card" data-cat="culture">
                 <div style="overflow:hidden;">
-                    <img src="assets/images/grid_culture.webp" class="article-card-img" alt="Article"/>
+                    <img src="assets/images/pexels-othmane-ettalbi-2148497459-30374243.webp" class="article-card-img" alt="Article"/>
                 </div>
                 <div class="article-card-body">
                     <div class="article-card-category">Culture</div>
@@ -687,7 +687,7 @@
             <!-- Card 3 -->
             <div class="article-card" data-cat="sports">
                 <div style="overflow:hidden;">
-                    <img src="assets/images/grid_sports.webp" class="article-card-img" alt="Article"/>
+                    <img src="assets/images/pexels-afhamhmsyri-34021102.webp" class="article-card-img" alt="Article"/>
                 </div>
                 <div class="article-card-body">
                     <div class="article-card-category">Sports</div>
@@ -702,7 +702,7 @@
             <!-- Card 4 -->
             <div class="article-card" data-cat="politics">
                 <div style="overflow:hidden;">
-                    <img src="assets/images/grid_politics.webp" class="article-card-img" alt="Article"/>
+                    <img src="assets/images/img-post2.webp" class="article-card-img" alt="Article"/>
                 </div>
                 <div class="article-card-body">
                     <div class="article-card-category">Politics</div>
@@ -717,7 +717,7 @@
             <!-- Card 5 -->
             <div class="article-card" data-cat="travel">
                 <div style="overflow:hidden;">
-                    <img src="assets/images/grid_travel.webp" class="article-card-img" alt="Article"/>
+                    <img src="assets/images/slide.webp" class="article-card-img" alt="Article"/>
                 </div>
                 <div class="article-card-body">
                     <div class="article-card-category">Travel</div>
@@ -732,7 +732,7 @@
             <!-- Card 6 -->
             <div class="article-card" data-cat="tech">
                 <div style="overflow:hidden;">
-                    <img src="assets/images/grid_tech.webp" class="article-card-img" alt="Article"/>
+                    <img src="assets/images/img-post4.webp" class="article-card-img" alt="Article"/>
                 </div>
                 <div class="article-card-body">
                     <div class="article-card-category">Technology</div>
@@ -818,12 +818,12 @@
                 <div class="newsletter-heading">Never miss<br>a story.</div>
                 <p class="newsletter-sub">Get Salem's most important stories delivered to your inbox every weekday morning. Free, no spam, unsubscribe anytime.</p>
             </div>
-            <div class="newsletter-form-wrap">
-                <input type="text" class="newsletter-input" placeholder="FIRST NAME" id="nl-name"/>
-                <input type="email" class="newsletter-input" placeholder="EMAIL ADDRESS" id="nl-email"/>
-                <button class="newsletter-submit" onclick="handleNewsletterSubmit()">Subscribe to Stackly News →</button>
+            <form class="newsletter-form-wrap" onsubmit="handleNewsletterSubmit(event)">
+                <input type="text" class="newsletter-input" placeholder="FIRST NAME" id="nl-name" required minlength="2"/>
+                <input type="email" class="newsletter-input" placeholder="EMAIL ADDRESS" id="nl-email" required/>
+                <button type="submit" class="newsletter-submit">Subscribe to Stackly News →</button>
                 <p class="newsletter-note">By subscribing you agree to our privacy policy. We never share your data.</p>
-            </div>
+            </form>
         </div>
     </section>
 
@@ -952,12 +952,10 @@
         updateSlider('all');
 
         // ------- Newsletter Submit -------
-        function handleNewsletterSubmit() {
-            const email = document.getElementById('nl-email').value;
-            if (email && email.includes('@')) {
+        function handleNewsletterSubmit(e) {
+            e.preventDefault();
+            if (e.target.checkValidity()) {
                 window.location.href = '404.html';
-            } else {
-                alert('Please enter a valid email address.');
             }
         }
     </script>

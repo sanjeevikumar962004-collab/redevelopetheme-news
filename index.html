@@ -329,6 +329,7 @@
       transform: scale(1.05);
     }
 
+
     @media (max-width: 767px) {
       .logo-part {
         padding: 20px 30px;
@@ -344,6 +345,122 @@
         padding: 12px 40px;
         font-size: 16px;
       }
+    }
+
+    /* -------- Article Grid Components (Imported from Articles) -------- */
+    .category-bar {
+        padding: 0 44px;
+        border-bottom: 1px solid #000;
+        position: sticky; top: 0; z-index: 50;
+        background: #fff;
+    }
+    .category-bar-inner {
+        max-width: 1400px; margin: 0 auto;
+        display: flex; gap: 0; overflow-x: auto;
+        scrollbar-width: none;
+    }
+    .category-bar-inner::-webkit-scrollbar { display: none; }
+    .cat-btn {
+        flex-shrink: 0;
+        padding: 20px 32px;
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 14px; font-weight: 700; letter-spacing: 1.5px;
+        text-transform: uppercase; cursor: pointer;
+        background: transparent; border: none;
+        border-right: 1px solid #000;
+        transition: background 0.3s cubic-bezier(0.19, 1, 0.22, 1), 
+                    color 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .cat-btn:first-child { border-left: 1px solid #000; }
+    .cat-btn.active, .cat-btn:hover { background: #000; color: #fff; }
+
+    .grid-section {
+        padding: 80px 44px;
+        border-bottom: 1px solid #000;
+        background: #fff;
+    }
+    .grid-section-header {
+        max-width: 1400px; margin: 0 auto 56px;
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    .section-label {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 13px; font-weight: 700; letter-spacing: 3px;
+        text-transform: uppercase; color: #000;
+    }
+    .section-label::before {
+        content: ''; display: inline-block;
+        width: 24px; height: 2px;
+        background: #000; margin-right: 12px;
+        vertical-align: middle;
+    }
+    .article-grid {
+        max-width: 1400px; margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        transition: opacity 0.4s ease;
+    }
+    .article-grid.filtering { opacity: 0; pointer-events: none; }
+    .article-card {
+        border: 1px solid #000; border-right: none; border-top: none;
+        padding: 0; overflow: hidden;
+        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), 
+                    opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .article-grid .article-card:nth-child(3n) { border-right: 1px solid #000; }
+    .article-grid .article-card:nth-child(-n+3) { border-top: 1px solid #000; }
+    .article-card.hidden { display: none; transform: translateY(20px); opacity: 0; }
+    .article-card:hover { background: #f5f5f5; }
+    .article-card-img {
+        width: 100%; aspect-ratio: 16/10;
+        object-fit: cover; display: block;
+        border-bottom: 1px solid #000;
+        transition: transform 0.5s ease;
+    }
+    .article-card:hover .article-card-img { transform: scale(1.03); }
+    .article-card-body { padding: 28px 28px 32px; }
+    .article-card-category {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 11px; font-weight: 700; letter-spacing: 2px;
+        text-transform: uppercase; color: #999;
+        margin-bottom: 14px;
+    }
+    .article-card-title {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 1.6rem; font-weight: 700; line-height: 1.1;
+        text-transform: uppercase; margin-bottom: 14px;
+        color: #000;
+    }
+    .article-card-excerpt {
+        font-family: Inter, sans-serif;
+        font-size: 13px; line-height: 1.6; color: #666;
+        margin-bottom: 24px;
+    }
+    .article-card-meta {
+        display: flex; justify-content: space-between; align-items: center;
+        padding-top: 18px; border-top: 1px solid #e0e0e0;
+        font-family: Inter, sans-serif; font-size: 12px; color: #999;
+    }
+    .card-read-link {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 12px; font-weight: 700; letter-spacing: 1px;
+        text-transform: uppercase; color: #000; text-decoration: none;
+    }
+    .card-read-link:hover { text-decoration: underline; }
+
+    @media (max-width: 991px) {
+        .article-grid { grid-template-columns: repeat(2, 1fr); }
+        .article-grid .article-card:nth-child(3n) { border-right: none; }
+        .article-grid .article-card:nth-child(2n) { border-right: 1px solid #000; }
+    }
+    @media (max-width: 767px) {
+        .category-bar { padding: 0 24px; }
+        .cat-btn { padding: 16px 20px; font-size: 12px; }
+        .grid-section { padding: 60px 24px; }
+        .article-grid { grid-template-columns: 1fr; }
+        .article-grid .article-card:nth-child(2n) { border-right: none; }
+        .article-grid .article-card { border-right: 1px solid #000; }
     }
   </style>
 </head>
@@ -713,65 +830,123 @@
     </div>
   </div>
 
-  <div class="scene">
-    <div class="bg-typography">
-      <span>TOP</span>
-      <span>PICS</span>
-    </div>
+  </div>
 
-    <div class="galeria-book-3d">
-      <div class="galeria-book-3d__item" style="--i: 0">
-        <img
-           src="assets/images/img-post1.webp"
-           alt="Front 1"
-           />
-        <img
-           src="assets/images/img-post2.webp"
-           alt="Back 1"
-           />
-      </div>
-      <div class="galeria-book-3d__item" style="--i: 1">
-        <img
-           src="assets/images/img-post3.webp"
-           alt="Front 2"
-           />
-        <img
-           src="assets/images/img-post4.webp"
-           alt="Back 2"
-           />
-      </div>
-      <div class="galeria-book-3d__item" style="--i: 2">
-        <img
-           src="assets/images/feat_local.webp"
-           alt="Front 3"
-           />
-        <img
-           src="assets/images/pexels-afhamhmsyri-34021102.webp"
-           alt="Back 3"
-           />
-      </div>
-      <div class="galeria-book-3d__item" style="--i: 3">
-        <img
-           src="assets/images/img-hero.webp"
-           alt="Front 4"
-           />
-        <img
-           src="assets/images/pexels-othmane-ettalbi-2148497459-30374243.webp"
-           alt="Back 4"
-           />
-      </div>
-      <div class="galeria-book-3d__item" style="--i: 4">
-        <img
-           src="assets/images/pexels-alperen-23825952.webp"
-           alt="Front 5"
-           />
-        <img
-           src="assets/images/pexels-thefullonmonet-17609922.webp"
-           alt="Back 5"
-           />
-      </div>
+  <!-- ====== CATEGORY FILTER BAR (Migrated from Articles) ====== -->
+  <div class="category-bar" id="category-bar">
+    <div class="category-bar-inner">
+      <button class="cat-btn active" data-cat="all">All</button>
+      <button class="cat-btn" data-cat="local">Local</button>
+      <button class="cat-btn" data-cat="politics">Politics</button>
+      <button class="cat-btn" data-cat="tech">Technology</button>
+      <button class="cat-btn" data-cat="culture">Culture</button>
+      <button class="cat-btn" data-cat="sports">Sports</button>
+      <button class="cat-btn" data-cat="travel">Travel</button>
+      <button class="cat-btn" data-cat="environment">Environment</button>
     </div>
   </div>
+
+  <!-- ====== ARTICLE GRID (Migrated from Articles) ====== -->
+  <section class="grid-section" id="latest">
+    <div class="grid-section-header">
+      <span class="section-label">Latest Articles</span>
+      <a href="articles.html"
+        style="font-family:'Roboto Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;color:#000;border-bottom:2px solid #000;padding-bottom:2px;">View
+        Archive →</a>
+    </div>
+    <div class="article-grid" id="article-grid">
+      <!-- Card 1 -->
+      <div class="article-card" data-cat="local">
+        <div style="overflow:hidden;">
+          <img src="assets/images/img-post1.webp" class="article-card-img" alt="Article" />
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-category">Local</div>
+          <div class="article-card-title">Salem's New Metro Rail Proposal Clears State Review Board</div>
+          <p class="article-card-excerpt">The proposed Salem Metro Link connecting the railway station to the Yercaud foothills has been fast-tracked after a positive state secretariat review.</p>
+          <div class="article-card-meta">
+            <span>Apr 12 · 4 min</span>
+            <a href="404.html" class="card-read-link">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="article-card" data-cat="culture">
+        <div style="overflow:hidden;">
+          <img src="assets/images/pexels-othmane-ettalbi-2148497459-30374243.webp" class="article-card-img" alt="Article" />
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-category">Culture</div>
+          <div class="article-card-title">Salem's Silk Weaving Heritage Gets UNESCO Recognition Push</div>
+          <p class="article-card-excerpt">The Department of Handlooms is supporting a bid to have Salem's celebrated silk weaving tradition included on UNESCO's Intangible Cultural Heritage list.</p>
+          <div class="article-card-meta">
+            <span>Apr 11 · 5 min</span>
+            <a href="404.html" class="card-read-link">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="article-card" data-cat="sports">
+        <div style="overflow:hidden;">
+          <img src="assets/images/pexels-afhamhmsyri-34021102.webp" class="article-card-img" alt="Article" />
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-category">Sports</div>
+          <div class="article-card-title">Salem Boys Win State U-17 Football Championship</div>
+          <p class="article-card-excerpt">The Salem District XI defeated Coimbatore 3-1 in the state final, clinching their second title in three years and earning national representation.</p>
+          <div class="article-card-meta">
+            <span>Apr 10 · 3 min</span>
+            <a href="404.html" class="card-read-link">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="article-card" data-cat="politics">
+        <div style="overflow:hidden;">
+          <img src="assets/images/img-post2.webp" class="article-card-img" alt="Article" />
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-category">Politics</div>
+          <div class="article-card-title">District Administration Restructuring Sparks Debate Among Officials</div>
+          <p class="article-card-excerpt">A proposed overhaul of Salem's taluk boundaries — the first in 30 years — has triggered pushback from civil society groups and opposition parties alike.</p>
+          <div class="article-card-meta">
+            <span>Apr 09 · 7 min</span>
+            <a href="404.html" class="card-read-link">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="article-card" data-cat="travel">
+        <div style="overflow:hidden;">
+          <img src="assets/images/slide.webp" class="article-card-img" alt="Article" />
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-category">Travel</div>
+          <div class="article-card-title">Yercaud in April: The Underrated Hill Station Guide for 2026</div>
+          <p class="article-card-excerpt">Just 30 km from Salem, Yercaud offers misty mornings, tribal coffee estates, and zero tourist crowds. Our reporter spent a weekend there so you don't have to guess.</p>
+          <div class="article-card-meta">
+            <span>Apr 08 · 6 min</span>
+            <a href="404.html" class="card-read-link">Read →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="article-card" data-cat="tech">
+        <div style="overflow:hidden;">
+          <img src="assets/images/img-post4.webp" class="article-card-img" alt="Article" />
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-category">Technology</div>
+          <div class="article-card-title">Salem's MSME Sector Embraces Digital Payments at Record Rate</div>
+          <p class="article-card-excerpt">A new FICCI report highlights Salem as one of Tamil Nadu's fastest-adopting MSME clusters for UPI and digital ledger systems, with over 8,000 businesses onboarded in Q1.</p>
+          <div class="article-card-meta">
+            <span>Apr 07 · 4 min</span>
+            <a href="404.html" class="card-read-link">Read →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <div class="section overflow-hidden no-padding-bottom">
     <div class="wide-container">
       <div data-w-id="04eebb40-ab4a-8e10-0088-afe594b6bd9b" class="heading-2-wrapper">
@@ -1287,6 +1462,36 @@
             }
         });
     });
+
+    // ------- Article Grid Filter (Migrated from Articles) -------
+    const catBtns = document.querySelectorAll('.cat-btn');
+    const grid = document.getElementById('article-grid');
+    const cards = document.querySelectorAll('#article-grid .article-card');
+
+    if (catBtns.length > 0 && grid && cards.length > 0) {
+        catBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.classList.contains('active')) return;
+
+                catBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const cat = btn.dataset.cat;
+
+                // Update Grid with transition
+                grid.classList.add('filtering');
+                setTimeout(() => {
+                    cards.forEach(card => {
+                        if (cat === 'all' || card.dataset.cat === cat) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                    setTimeout(() => { grid.classList.remove('filtering'); }, 50);
+                }, 400);
+            });
+        });
+    }
   </script>
 </body>
 

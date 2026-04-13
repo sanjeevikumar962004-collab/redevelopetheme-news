@@ -336,10 +336,10 @@
                 <p class="form-sub">We aim to respond to all inquiries within 24 hours. For breaking news tips, please use the Whistleblower Hub information below.</p>
             </div>
             <div>
-                <form class="contact-form" action="#" onsubmit="handleFormSubmit(event)">
+                <form class="contact-form" onsubmit="handleFormSubmit(event)">
                     <div class="form-group">
                         <label class="form-label">Full Name</label>
-                        <input type="text" class="form-input" placeholder="Your Name" required/>
+                        <input type="text" class="form-input" placeholder="Your Name" required minlength="2"/>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Email Address</label>
@@ -347,7 +347,8 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Subject</label>
-                        <select class="form-input" style="appearance: none;">
+                        <select class="form-input" style="appearance: none;" required>
+                            <option value="">Select a subject</option>
                             <option>Editorial Tip</option>
                             <option>Letters to the Editor</option>
                             <option>Advertising Inquiry</option>
@@ -356,7 +357,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Message</label>
-                        <textarea class="form-textarea" placeholder="How can we help?"></textarea>
+                        <textarea class="form-textarea" placeholder="How can we help?" required minlength="10"></textarea>
                     </div>
                     <div class="submit-btn-wrap">
                         <button type="submit" class="submit-btn">Send Message →</button>
@@ -418,12 +419,12 @@
                 <div class="newsletter-heading">Never miss<br>a story.</div>
                 <p class="newsletter-sub">Get Salem's most important stories delivered to your inbox every weekday morning. Free, no spam, unsubscribe anytime.</p>
             </div>
-            <div class="newsletter-form-wrap">
-                <input type="text" class="newsletter-input" placeholder="FIRST NAME" id="nl-name"/>
-                <input type="email" class="newsletter-input" placeholder="EMAIL ADDRESS" id="nl-email"/>
-                <button class="newsletter-submit" onclick="handleNewsletterSubmit()">Subscribe to Stackly News →</button>
+            <form class="newsletter-form-wrap" onsubmit="handleNewsletterSubmit(event)">
+                <input type="text" class="newsletter-input" placeholder="FIRST NAME" id="nl-name" required minlength="2"/>
+                <input type="email" class="newsletter-input" placeholder="EMAIL ADDRESS" id="nl-email" required/>
+                <button type="submit" class="newsletter-submit">Subscribe to Stackly News →</button>
                 <p class="newsletter-note">By subscribing you agree to our privacy policy. We never share your data.</p>
-            </div>
+            </form>
         </div>
     </section>
 
@@ -482,16 +483,16 @@
         // ------- Form Submit -------
         function handleFormSubmit(e) {
             e.preventDefault();
-            window.location.href = "404.html";
+            if (e.target.checkValidity()) {
+                window.location.href = "404.html";
+            }
         }
 
         // ------- Newsletter Submit -------
-        function handleNewsletterSubmit() {
-            const email = document.getElementById('nl-email').value;
-            if (email && email.includes('@')) {
+        function handleNewsletterSubmit(e) {
+            e.preventDefault();
+            if (e.target.checkValidity()) {
                 window.location.href = "404.html";
-            } else {
-                alert('Please enter a valid email address.');
             }
         }
     </script>
