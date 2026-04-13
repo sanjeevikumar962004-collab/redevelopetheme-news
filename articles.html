@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Articles — Stackly News | Salem's Independent Voice</title>
+    <meta content="Explore all news articles from Stackly News. Local stories, breaking news, and in-depth reporting from Salem's most trusted independent outlet." name="description"/>
+    <meta content="Articles — Stackly News" property="og:title"/>
+    <meta content="Explore all news articles from Stackly News." property="og:description"/>
+    <meta content="Articles — Stackly News" property="twitter:title"/>
+    <meta content="Explore all news articles from Stackly News." property="twitter:description"/>
+    <meta property="og:type" content="website"/>
+    <meta content="summary_large_image" name="twitter:card"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link href="./style.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/>
+    <script src="./webfont.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        WebFont.load({
+            google: {
+                families: ["Roboto Condensed:300,300italic,regular,italic,700,700italic", "Inter:200,300,regular,500,600,700,800"]
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        !function(o, c) {
+            var n = c.documentElement, t = " w-mod-";
+            n.className += t + "js",
+            ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
+        }(window, document);
+    </script>
+    <link href="assets/icons/favicon.svg" rel="shortcut icon" type="image/x-icon"/>
+    <link href="assets/icons/webclip.svg" rel="apple-touch-icon"/>
+    <style>
+        /* -------- Base -------- */
+        .item-hover-button { pointer-events: none; }
+        body { overflow-x: hidden; }
+
+        /* -------- Custom Dispatch-style Footer -------- */
+        .custom-footer {
+            background-color: #000; color: #fff;
+            padding: 100px 44px 60px;
+            display: flex; flex-direction: column;
+            align-items: center; text-align: center;
+        }
+        .footer-nav-row { display: flex; gap: 40px; margin-bottom: 80px; flex-wrap: wrap; justify-content: center; }
+        .footer-nav-link { color: #fff; text-decoration: none; font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+        .footer-logo-split { display: flex; border: 1px solid #fff; margin-bottom: 50px; font-family: 'Roboto Condensed', sans-serif; font-weight: 700; text-transform: uppercase; }
+        .logo-part { padding: 40px 60px; font-size: 12vw; line-height: 0.8; }
+        .logo-black { background-color: #000; color: #fff; }
+        .logo-white { background-color: #fff; color: #000; }
+        .footer-credits { font-family: Inter, sans-serif; font-size: 16px; margin-bottom: 80px; opacity: 1; text-transform: none; }
+        .footer-credits a { color: #fff; text-decoration: underline; }
+        .social-pill-container { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .social-pill { background-color: #fff; color: #000; padding: 14px 60px; border-radius: 100px; text-decoration: none; font-weight: 700; font-size: 18px; transition: transform 0.2s; }
+        .social-pill:hover { transform: scale(1.05); }
+
+        /* -------- Articles Page Specific -------- */
+
+        /* Animation Utilities */
+        .reveal-wrapper { overflow: hidden; display: inline-block; vertical-align: bottom; }
+        .reveal-item { 
+            display: inline-block; 
+            transform: translateY(110%); 
+            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .reveal-item.active { transform: translateY(0); }
+
+        /* Hero */
+        .articles-hero {
+            padding: 120px 44px 80px;
+            border-bottom: 1px solid #000;
+        }
+        .articles-hero-inner {
+            max-width: 1400px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: flex-end;
+            flex-wrap: wrap; gap: 24px;
+        }
+        .heading-1-wrapper { display: flex; flex-wrap: wrap; gap: 0 4px; }
+        .articles-hero-title {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: clamp(5rem, 14vw, 14rem);
+            font-weight: 700; line-height: 0.85;
+            text-transform: uppercase; letter-spacing: -2px;
+            margin: 0;
+        }
+        .char { display: inline-block; }
+
+        .articles-hero-meta {
+            max-width: 340px;
+            font-family: Inter, sans-serif;
+            font-size: 15px; line-height: 1.6;
+            color: #444;
+            padding-bottom: 12px;
+        }
+        .articles-count-badge {
+            display: inline-block;
+            background: #000; color: #fff;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 13px; font-weight: 700; letter-spacing: 2px;
+            padding: 8px 20px; margin-bottom: 16px;
+        }
+
+        /* -------- Category Filter Bar -------- */
+        .category-bar {
+            padding: 0 44px;
+            border-bottom: 1px solid #000;
+            position: sticky; top: 0; z-index: 50;
+            background: #fff;
+        }
+        .category-bar-inner {
+            max-width: 1400px; margin: 0 auto;
+            display: flex; gap: 0; overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .category-bar-inner::-webkit-scrollbar { display: none; }
+        .cat-btn {
+            flex-shrink: 0;
+            padding: 20px 32px;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 14px; font-weight: 700; letter-spacing: 1.5px;
+            text-transform: uppercase; cursor: pointer;
+            background: transparent; border: none;
+            border-right: 1px solid #000;
+            transition: background 0.3s cubic-bezier(0.19, 1, 0.22, 1), 
+                        color 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .cat-btn:first-child { border-left: 1px solid #000; }
+        .cat-btn.active, .cat-btn:hover { background: #000; color: #fff; }
+
+        /* Filtering Transitions */
+        .article-grid {
+            transition: opacity 0.4s ease;
+        }
+        .article-grid.filtering { opacity: 0; pointer-events: none; }
+        .article-card {
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), 
+                        opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .article-card.hidden { display: none; transform: translateY(20px); opacity: 0; }
+
+        /* -------- Featured Slider Section -------- */
+        .featured-section {
+            padding: 80px 44px 0;
+            border-bottom: 1px solid #000;
+            overflow: hidden;
+        }
+        .featured-section-header {
+            max-width: 1400px; margin: 0 auto 48px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .section-label {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 13px; font-weight: 700; letter-spacing: 3px;
+            text-transform: uppercase; color: #000;
+        }
+        .section-label::before {
+            content: ''; display: inline-block;
+            width: 24px; height: 2px;
+            background: #000; margin-right: 12px;
+            vertical-align: middle;
+        }
+
+        /* Featured card */
+        .featured-card {
+            display: grid; grid-template-columns: 1fr 1fr;
+            min-height: 520px; border-top: 1px solid #000;
+        }
+        .featured-card-image {
+            overflow: hidden; position: relative;
+        }
+        .featured-card-image img {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+            transition: transform 0.6s ease;
+        }
+        .featured-card:hover .featured-card-image img { transform: scale(1.04); }
+        .featured-card-content {
+            padding: 56px 48px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            border-left: 1px solid #000;
+        }
+        .featured-card-tag {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 12px; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; color: #888;
+            margin-bottom: 24px;
+        }
+        .featured-card-title {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700; line-height: 1.05;
+            text-transform: uppercase; flex: 1;
+        }
+        .featured-card-excerpt {
+            font-family: Inter, sans-serif;
+            font-size: 15px; line-height: 1.7; color: #555;
+            margin: 32px 0;
+        }
+        .featured-card-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 24px; border-top: 1px solid #e0e0e0;
+        }
+        .featured-card-byline {
+            font-family: Inter, sans-serif; font-size: 13px; color: #888;
+        }
+        .read-btn {
+            display: flex; align-items: center; gap: 10px;
+            text-decoration: none; color: #000;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 14px; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .read-btn .arrow-icon {
+            width: 40px; height: 40px;
+            border: 1px solid #000; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+        .read-btn:hover .arrow-icon { background: #000; color: #fff; }
+        .read-btn .arrow-icon svg { width: 16px; height: 16px; fill: currentColor; transition: fill 0.2s; }
+
+        /* Slider controls */
+        .slider-controls {
+            display: flex; align-items: center; gap: 0;
+        }
+        .slider-ctrl-btn {
+            width: 52px; height: 52px;
+            border: 1px solid #000; background: transparent;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .slider-ctrl-btn:last-child { border-left: none; }
+        .slider-ctrl-btn:hover { background: #000; }
+        .slider-ctrl-btn:hover svg { stroke: #fff; }
+        .slider-ctrl-btn svg { width: 18px; height: 18px; stroke: #000; stroke-width: 2; fill: none; transition: stroke 0.2s; }
+
+        /* -------- Article Grid Section -------- */
+        .grid-section {
+            padding: 80px 44px;
+            border-bottom: 1px solid #000;
+        }
+        .grid-section-header {
+            max-width: 1400px; margin: 0 auto 56px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .article-grid {
+            max-width: 1400px; margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+        .article-card {
+            border: 1px solid #000; border-right: none; border-top: none;
+            padding: 0; overflow: hidden;
+            transition: background 0.25s;
+        }
+        .article-grid .article-card:nth-child(3n) { border-right: 1px solid #000; }
+        .article-grid .article-card:nth-child(-n+3) { border-top: 1px solid #000; }
+        .article-card:hover { background: #f5f5f5; }
+        .article-card-img {
+            width: 100%; aspect-ratio: 16/10;
+            object-fit: cover; display: block;
+            border-bottom: 1px solid #000;
+            transition: transform 0.5s ease;
+        }
+        .article-card:hover .article-card-img { transform: scale(1.03); }
+        .article-card-body { padding: 28px 28px 32px; }
+        .article-card-category {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 11px; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; color: #999;
+            margin-bottom: 14px;
+        }
+        .article-card-title {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 1.6rem; font-weight: 700; line-height: 1.1;
+            text-transform: uppercase; margin-bottom: 14px;
+        }
+        .article-card-excerpt {
+            font-family: Inter, sans-serif;
+            font-size: 13px; line-height: 1.6; color: #666;
+            margin-bottom: 24px;
+        }
+        .article-card-meta {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 18px; border-top: 1px solid #e0e0e0;
+            font-family: Inter, sans-serif; font-size: 12px; color: #999;
+        }
+        .card-read-link {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 12px; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; color: #000; text-decoration: none;
+        }
+        .card-read-link:hover { text-decoration: underline; }
+
+        /* -------- Quote / Highlight Band -------- */
+        .quote-band {
+            padding: 120px 44px;
+            background: #000; color: #fff;
+            text-align: center;
+            border-bottom: 1px solid #000;
+        }
+        .quote-band-inner { max-width: 1000px; margin: 0 auto; }
+        .quote-mark {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 8rem; line-height: 0.5; color: #444;
+            margin-bottom: 32px; display: block;
+        }
+        .quote-text {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: clamp(2rem, 4.5vw, 4rem);
+            font-weight: 700; line-height: 1.1; text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+        .quote-author {
+            font-family: Inter, sans-serif; font-size: 14px;
+            letter-spacing: 2px; text-transform: uppercase; color: #888;
+        }
+
+        /* -------- Topic Rows Section -------- */
+        .topics-section {
+            padding: 80px 44px;
+            border-bottom: 1px solid #000;
+        }
+        .topics-section-header {
+            max-width: 1400px; margin: 0 auto 56px;
+        }
+        .topic-row {
+            max-width: 1400px; margin: 0 auto;
+            display: flex; align-items: stretch;
+            border-top: 1px solid #000;
+            transition: background 0.2s;
+            cursor: pointer; text-decoration: none; color: inherit;
+        }
+        .topic-row:last-child { border-bottom: 1px solid #000; }
+        .topic-row:hover { background: #f5f5f5; }
+        .topic-row-num {
+            width: 80px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 2rem; font-weight: 300; color: #ccc;
+            border-right: 1px solid #000;
+        }
+        .topic-row-content {
+            flex: 1; padding: 32px 40px;
+            display: flex; align-items: center;
+            justify-content: space-between; gap: 24px;
+        }
+        .topic-row-title {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: clamp(1.6rem, 3vw, 2.8rem);
+            font-weight: 700; text-transform: uppercase;
+        }
+        .topic-row-tag {
+            font-family: Inter, sans-serif; font-size: 13px;
+            color: #888; white-space: nowrap;
+        }
+        .topic-row-arrow {
+            width: 48px; height: 48px; flex-shrink: 0;
+            border: 1px solid #000; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .topic-row:hover .topic-row-arrow { background: #000; color: #fff; }
+        .topic-row-arrow svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+        /* -------- Newsletter Section -------- */
+        .newsletter-section {
+            padding: 100px 44px;
+            border-bottom: 1px solid #000;
+        }
+        .newsletter-inner {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 700; text-transform: uppercase; line-height: 0.95;
+        }
+        .newsletter-sub {
+            font-family: Inter, sans-serif; font-size: 16px;
+            line-height: 1.7; color: #555; margin-top: 24px;
+        }
+        .newsletter-form-wrap { display: flex; flex-direction: column; gap: 16px; }
+        .newsletter-input {
+            width: 100%; padding: 20px 24px;
+            border: 1px solid #000; outline: none;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 1rem; letter-spacing: 1px;
+            background: transparent; transition: background 0.2s;
+        }
+        .newsletter-input:focus { background: #f5f5f5; }
+        .newsletter-submit {
+            padding: 20px 40px;
+            background: #000; color: #fff; border: none; cursor: pointer;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+            transition: background 0.2s, color 0.2s;
+        }
+        .newsletter-submit:hover { background: #333; }
+        .newsletter-note {
+            font-family: Inter, sans-serif; font-size: 12px; color: #999;
+        }
+
+        /* -------- Responsive -------- */
+        @media (max-width: 991px) {
+            .featured-card { grid-template-columns: 1fr; }
+            .featured-card-image { min-height: 300px; }
+            .featured-card-content { border-left: none; border-top: 1px solid #000; }
+            .article-grid { grid-template-columns: repeat(2, 1fr); }
+            .article-grid .article-card:nth-child(3n) { border-right: none; }
+            .article-grid .article-card:nth-child(2n) { border-right: 1px solid #000; }
+            .newsletter-inner { grid-template-columns: 1fr; gap: 40px; }
+        }
+        @media (max-width: 767px) {
+            .articles-hero { padding: 100px 24px 60px; }
+            .articles-hero-title { font-size: clamp(4rem, 18vw, 8rem); }
+            .category-bar { padding: 0 24px; }
+            .cat-btn { padding: 16px 20px; font-size: 12px; }
+            .featured-section, .grid-section, .topics-section, .newsletter-section { padding: 60px 24px; }
+            .article-grid { grid-template-columns: 1fr; }
+            .article-grid .article-card:nth-child(2n) { border-right: none; }
+            .article-grid .article-card { border-right: 1px solid #000; }
+            .logo-part { padding: 20px 30px; font-size: 15vw; }
+            .footer-nav-row { gap: 20px; }
+            .footer-nav-link { font-size: 14px; }
+            .social-pill { padding: 12px 40px; font-size: 16px; }
+            .topic-row-num { width: 48px; }
+            .topic-row-content { padding: 24px 20px; }
+            .custom-footer { padding: 60px 24px 40px; }
+        }
+    </style>
+</head>
+<body class="body">
+
+    <!-- ====== NAVIGATION ====== -->
+    <div data-animation="default" data-collapse="medium" data-duration="600" data-easing="ease" data-easing2="ease" role="banner" class="navbar secondary w-nav">
+        <div class="wide-container">
+            <div class="navbar-home-container secondary">
+                <div class="brand-home secondary">
+                    <a href="index.html" class="brand-home-inner w-inline-block">
+                        <div class="home-logo-text" style="display: flex;">
+                            <div style="font-family: inherit;">S</div>
+                            <div style="font-family: inherit;">T</div>
+                            <div style="font-family: inherit;">A</div>
+                            <div style="font-family: inherit;">C</div>
+                            <div style="font-family: inherit;">K</div>
+                            <div style="font-family: inherit;">L</div>
+                            <div style="font-family: inherit;">Y</div>
+                        </div>
+                    </a>
+                </div>
+                <nav role="navigation" class="nav-menu secondary w-nav-menu">
+                    <div class="nav-links-in-sticky secondary">
+                        <a href="index.html" class="nav-link-container w-inline-block">
+                            <div class="wrapper"><div class="nav-link-text">home</div></div>
+                            <div class="outer-link-line"><div class="inner-link-line"></div></div>
+                        </a>
+                        <a href="about.html" class="nav-link-container w-inline-block">
+                            <div class="wrapper"><div class="nav-link-text">about</div></div>
+                            <div class="outer-link-line"><div class="inner-link-line"></div></div>
+                        </a>
+                        <a href="articles.html" aria-current="page" class="nav-link-container w-inline-block w--current">
+                            <div class="wrapper"><div class="nav-link-text">articles</div></div>
+                            <div class="outer-link-line"><div class="inner-link-line"></div></div>
+                        </a>
+                        <a href="contact.html" class="nav-link-container w-inline-block">
+                            <div class="wrapper"><div class="nav-link-text">contact</div></div>
+                            <div class="outer-link-line"><div class="inner-link-line"></div></div>
+                        </a>
+                        <a href="login.html" class="nav-link-container w-inline-block">
+                            <div class="wrapper"><div class="nav-link-text">login</div></div>
+                            <div class="outer-link-line"><div class="inner-link-line"></div></div>
+                        </a>
+                    </div>
+                </nav>
+                <div class="menu-button w-nav-button">
+                    <div class="menu-button-inner">
+                        <div class="menu-line"></div>
+                        <div class="menu-line center"></div>
+                        <div class="menu-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-line"></div>
+    </div>
+
+    <!-- ====== HERO ====== -->
+    <section class="articles-hero">
+        <div class="articles-hero-inner">
+            <div class="heading-1-wrapper">
+                <h1 class="articles-hero-title">
+                    <span class="reveal-wrapper"><span class="reveal-item" style="transition-delay: 0.1s;">N</span></span><span class="reveal-wrapper"><span class="reveal-item" style="transition-delay: 0.15s;">e</span></span><span class="reveal-wrapper"><span class="reveal-item" style="transition-delay: 0.2s;">w</span></span><span class="reveal-wrapper"><span class="reveal-item" style="transition-delay: 0.25s;">s</span></span>
+                    <br>
+                    <span class="reveal-wrapper"><span class="reveal-item" style="transition-delay: 0.4s;">A</span></span><span class="reveal-wrapper"><span class="reveal-item" style="transition-delay: 0.45s;">r</span></span><span class="reveal-wrapper"><span class="reveal-item" style="transition-delay: 0.5s;">t</span></span><span class="reveal-wrapper"><span class="reveal-item" style="transition-delay: 0.55s;">i</span></span><span class="reveal-wrapper"><span class="reveal-item" style="transition-delay: 0.6s;">c</span></span><span class="reveal-wrapper"><span class="reveal-item" style="transition-delay: 0.65s;">l</span></span><span class="reveal-wrapper"><span class="reveal-item" style="transition-delay: 0.7s;">e</span></span><span class="reveal-wrapper"><span class="reveal-item" style="transition-delay: 0.75s;">s</span></span>
+                </h1>
+            </div>
+            <div class="articles-hero-meta">
+                <div class="articles-count-badge">SALEM EDITION — 2026</div>
+                <p>Independent, rigorous, and local. Every story on this page is researched and written by Stackly News journalists based in Salem, Tamil Nadu.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== CATEGORY FILTER BAR ====== -->
+    <div class="category-bar" id="category-bar">
+        <div class="category-bar-inner">
+            <button class="cat-btn active" data-cat="all">All</button>
+            <button class="cat-btn" data-cat="local">Local</button>
+            <button class="cat-btn" data-cat="politics">Politics</button>
+            <button class="cat-btn" data-cat="tech">Technology</button>
+            <button class="cat-btn" data-cat="culture">Culture</button>
+            <button class="cat-btn" data-cat="sports">Sports</button>
+            <button class="cat-btn" data-cat="travel">Travel</button>
+            <button class="cat-btn" data-cat="environment">Environment</button>
+        </div>
+    </div>
+
+    <!-- ====== FEATURED ARTICLE SLIDER (with arrows) ====== -->
+    <section class="featured-section" id="featured">
+        <div class="featured-section-header">
+            <span class="section-label reveal-wrapper"><span class="reveal-item">Featured Stories</span></span>
+            <div class="slider-controls">
+                <button class="slider-ctrl-btn" id="feat-prev" aria-label="Previous">
+                    <svg viewBox="0 0 18 18"><polyline points="11 4 6 9 11 14"/></svg>
+                </button>
+                <button class="slider-ctrl-btn" id="feat-next" aria-label="Next">
+                    <svg viewBox="0 0 18 18"><polyline points="7 4 12 9 7 14"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="featured-slider" style="position:relative; overflow:hidden;">
+            <!-- Slide 1 -->
+            <div class="featured-card feat-slide" data-cat="local" style="display:grid;">
+                <div class="featured-card-image" style="overflow:hidden;">
+                    <img src="assets/images/feat_local.webp" alt="Salem Breaking News"/>
+                </div>
+                <div class="featured-card-content">
+                    <div>
+                        <div class="featured-card-tag">Local · April 13, 2026</div>
+                        <div class="featured-card-title">Salem Council Approves Major Infrastructure Plan for the City's Future</div>
+                        <p class="featured-card-excerpt">Salem's municipal council unanimously approved a ₹240 crore infrastructure overhaul covering roads, public transport links, and green space development across all five divisions of the city.</p>
+                    </div>
+                    <div class="featured-card-footer">
+                        <div class="featured-card-byline">By Katy Bourge · 8 min read</div>
+                        <a href="404.html" class="read-btn">
+                            Read Story
+                            <div class="arrow-icon">
+                                <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="featured-card feat-slide" data-cat="tech" style="display:none;">
+                <div class="featured-card-image" style="overflow:hidden;">
+                    <img src="assets/images/feat_tech.webp" alt="Technology Story"/>
+                </div>
+                <div class="featured-card-content">
+                    <div>
+                        <div class="featured-card-tag">Technology · April 11, 2026</div>
+                        <div class="featured-card-title">Local Startup Brings AI-Powered Crop Monitoring to Salem's Farmers</div>
+                        <p class="featured-card-excerpt">A Salem-born agritech company has deployed an AI platform now used by over 3,000 farming households in the region, reducing pesticide use by 34% in its first full season.</p>
+                    </div>
+                    <div class="featured-card-footer">
+                        <div class="featured-card-byline">By Max Becks · 6 min read</div>
+                        <a href="404.html" class="read-btn">
+                            Read Story
+                            <div class="arrow-icon">
+                                <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="featured-card feat-slide" data-cat="environment" style="display:none;">
+                <div class="featured-card-image" style="overflow:hidden;">
+                    <img src="assets/images/feat_env.webp" alt="Environment Story"/>
+                </div>
+                <div class="featured-card-content">
+                    <div>
+                        <div class="featured-card-tag">Environment · April 09, 2026</div>
+                        <div class="featured-card-title">The Mettur Dam Water Crisis: A Deep-Dive Report</div>
+                        <p class="featured-card-excerpt">Water levels at Mettur reservoir have dropped to their lowest point in seven years. Stackly News investigates the agricultural, industrial, and political forces shaping Salem's most pressing issue.</p>
+                    </div>
+                    <div class="featured-card-footer">
+                        <div class="featured-card-byline">By Sandra Vein · 12 min read</div>
+                        <a href="404.html" class="read-btn">
+                            Read Story
+                            <div class="arrow-icon">
+                                <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 4 (New: Politics) -->
+            <div class="featured-card feat-slide" data-cat="politics" style="display:none;">
+                <div class="featured-card-image" style="overflow:hidden;">
+                    <img src="assets/images/feat_politics.webp" alt="Politics Story"/>
+                </div>
+                <div class="featured-card-content">
+                    <div>
+                        <div class="featured-card-tag">Politics · April 07, 2026</div>
+                        <div class="featured-card-title">Salem Taluk Boundary Review: What You Need to Know</div>
+                        <p class="featured-card-excerpt">The most significant administrative revision in thirty years is currently under review. We break down the proposed changes and what they mean for local representation.</p>
+                    </div>
+                    <div class="featured-card-footer">
+                        <div class="featured-card-byline">By Alex Thorne · 10 min read</div>
+                        <a href="404.html" class="read-btn">
+                            Read Story
+                            <div class="arrow-icon">
+                                <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 5 (New: Culture) -->
+            <div class="featured-card feat-slide" data-cat="culture" style="display:none;">
+                <div class="featured-card-image" style="overflow:hidden;">
+                    <img src="assets/images/feat_culture.webp" alt="Culture Story"/>
+                </div>
+                <div class="featured-card-content">
+                    <div>
+                        <div class="featured-card-tag">Culture · April 05, 2026</div>
+                        <div class="featured-card-title">The Revival of Salem's Traditional Silk Markets</div>
+                        <p class="featured-card-excerpt">After years of decline, a new cooperative model is breathing life into Salem's historic silk weaving district, attracting a new generation of artisans.</p>
+                    </div>
+                    <div class="featured-card-footer">
+                        <div class="featured-card-byline">By Mira Seth · 7 min read</div>
+                        <a href="404.html" class="read-btn">
+                            Read Story
+                            <div class="arrow-icon">
+                                <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== ARTICLE GRID ====== -->
+    <section class="grid-section" id="latest">
+        <div class="grid-section-header">
+            <span class="section-label reveal-wrapper"><span class="reveal-item">Latest Articles</span></span>
+            <a href="404.html" style="font-family:'Roboto Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;color:#000;border-bottom:2px solid #000;padding-bottom:2px;">View Archive →</a>
+        </div>
+        <div class="article-grid" id="article-grid">
+            <!-- Card 1 -->
+            <div class="article-card" data-cat="local">
+                <div style="overflow:hidden;">
+                    <img src="assets/images/grid_local.webp" class="article-card-img" alt="Article"/>
+                </div>
+                <div class="article-card-body">
+                    <div class="article-card-category">Local</div>
+                    <div class="article-card-title">Salem's New Metro Rail Proposal Clears State Review Board</div>
+                    <p class="article-card-excerpt">The proposed Salem Metro Link connecting the railway station to the Yercaud foothills has been fast-tracked after a positive state secretariat review.</p>
+                    <div class="article-card-meta">
+                        <span>Apr 12 · 4 min</span>
+                        <a href="404.html" class="card-read-link">Read →</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="article-card" data-cat="culture">
+                <div style="overflow:hidden;">
+                    <img src="assets/images/grid_culture.webp" class="article-card-img" alt="Article"/>
+                </div>
+                <div class="article-card-body">
+                    <div class="article-card-category">Culture</div>
+                    <div class="article-card-title">Salem's Silk Weaving Heritage Gets UNESCO Recognition Push</div>
+                    <p class="article-card-excerpt">The Department of Handlooms is supporting a bid to have Salem's celebrated silk weaving tradition included on UNESCO's Intangible Cultural Heritage list.</p>
+                    <div class="article-card-meta">
+                        <span>Apr 11 · 5 min</span>
+                        <a href="404.html" class="card-read-link">Read →</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="article-card" data-cat="sports">
+                <div style="overflow:hidden;">
+                    <img src="assets/images/grid_sports.webp" class="article-card-img" alt="Article"/>
+                </div>
+                <div class="article-card-body">
+                    <div class="article-card-category">Sports</div>
+                    <div class="article-card-title">Salem Boys Win State U-17 Football Championship</div>
+                    <p class="article-card-excerpt">The Salem District XI defeated Coimbatore 3-1 in the state final, clinching their second title in three years and earning national representation.</p>
+                    <div class="article-card-meta">
+                        <span>Apr 10 · 3 min</span>
+                        <a href="404.html" class="card-read-link">Read →</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="article-card" data-cat="politics">
+                <div style="overflow:hidden;">
+                    <img src="assets/images/grid_politics.webp" class="article-card-img" alt="Article"/>
+                </div>
+                <div class="article-card-body">
+                    <div class="article-card-category">Politics</div>
+                    <div class="article-card-title">District Administration Restructuring Sparks Debate Among Officials</div>
+                    <p class="article-card-excerpt">A proposed overhaul of Salem's taluk boundaries — the first in 30 years — has triggered pushback from civil society groups and opposition parties alike.</p>
+                    <div class="article-card-meta">
+                        <span>Apr 09 · 7 min</span>
+                        <a href="404.html" class="card-read-link">Read →</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="article-card" data-cat="travel">
+                <div style="overflow:hidden;">
+                    <img src="assets/images/grid_travel.webp" class="article-card-img" alt="Article"/>
+                </div>
+                <div class="article-card-body">
+                    <div class="article-card-category">Travel</div>
+                    <div class="article-card-title">Yercaud in April: The Underrated Hill Station Guide for 2026</div>
+                    <p class="article-card-excerpt">Just 30 km from Salem, Yercaud offers misty mornings, tribal coffee estates, and zero tourist crowds. Our reporter spent a weekend there so you don't have to guess.</p>
+                    <div class="article-card-meta">
+                        <span>Apr 08 · 6 min</span>
+                        <a href="404.html" class="card-read-link">Read →</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 6 -->
+            <div class="article-card" data-cat="tech">
+                <div style="overflow:hidden;">
+                    <img src="assets/images/grid_tech.webp" class="article-card-img" alt="Article"/>
+                </div>
+                <div class="article-card-body">
+                    <div class="article-card-category">Technology</div>
+                    <div class="article-card-title">Salem's MSME Sector Embraces Digital Payments at Record Rate</div>
+                    <p class="article-card-excerpt">A new FICCI report highlights Salem as one of Tamil Nadu's fastest-adopting MSME clusters for UPI and digital ledger systems, with over 8,000 businesses onboarded in Q1.</p>
+                    <div class="article-card-meta">
+                        <span>Apr 07 · 4 min</span>
+                        <a href="404.html" class="card-read-link">Read →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== QUOTE / HIGHLIGHT BAND ====== -->
+    <section class="quote-band">
+        <div class="quote-band-inner">
+            <span class="quote-mark">"</span>
+            <div class="quote-text">News is not just what happened — it is why it matters to the people who live it.</div>
+            <div class="quote-author">— Stackly News Editorial Charter, Salem 2024</div>
+        </div>
+    </section>
+
+    <!-- ====== TOPIC ROWS SECTION ====== -->
+    <section class="topics-section" id="topics">
+        <div class="topics-section-header">
+            <span class="section-label reveal-wrapper"><span class="reveal-item">Browse by Topic</span></span>
+        </div>
+        <a href="404.html" class="topic-row">
+            <div class="topic-row-num">01</div>
+            <div class="topic-row-content">
+                <div class="topic-row-title">Local Government & Civic Affairs</div>
+                <div class="topic-row-tag">34 articles</div>
+                <div class="topic-row-arrow"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+            </div>
+        </a>
+        <a href="404.html" class="topic-row">
+            <div class="topic-row-num">02</div>
+            <div class="topic-row-content">
+                <div class="topic-row-title">Environment & Climate</div>
+                <div class="topic-row-tag">21 articles</div>
+                <div class="topic-row-arrow"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+            </div>
+        </a>
+        <a href="404.html" class="topic-row">
+            <div class="topic-row-num">03</div>
+            <div class="topic-row-content">
+                <div class="topic-row-title">Technology & Innovation</div>
+                <div class="topic-row-tag">18 articles</div>
+                <div class="topic-row-arrow"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+            </div>
+        </a>
+        <a href="404.html" class="topic-row">
+            <div class="topic-row-num">04</div>
+            <div class="topic-row-content">
+                <div class="topic-row-title">Culture, Arts & Heritage</div>
+                <div class="topic-row-tag">27 articles</div>
+                <div class="topic-row-arrow"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+            </div>
+        </a>
+        <a href="404.html" class="topic-row">
+            <div class="topic-row-num">05</div>
+            <div class="topic-row-content">
+                <div class="topic-row-title">Sports & Communities</div>
+                <div class="topic-row-tag">15 articles</div>
+                <div class="topic-row-arrow"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+            </div>
+        </a>
+        <a href="404.html" class="topic-row">
+            <div class="topic-row-num">06</div>
+            <div class="topic-row-content">
+                <div class="topic-row-title">Travel & Weekend Reads</div>
+                <div class="topic-row-tag">12 articles</div>
+                <div class="topic-row-arrow"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+            </div>
+        </a>
+    </section>
+
+    <!-- ====== NEWSLETTER SECTION ====== -->
+    <section class="newsletter-section" id="newsletter">
+        <div class="newsletter-inner">
+            <div>
+                <div class="newsletter-heading">Never miss<br>a story.</div>
+                <p class="newsletter-sub">Get Salem's most important stories delivered to your inbox every weekday morning. Free, no spam, unsubscribe anytime.</p>
+            </div>
+            <div class="newsletter-form-wrap">
+                <input type="text" class="newsletter-input" placeholder="FIRST NAME" id="nl-name"/>
+                <input type="email" class="newsletter-input" placeholder="EMAIL ADDRESS" id="nl-email"/>
+                <button class="newsletter-submit" onclick="handleNewsletterSubmit()">Subscribe to Stackly News →</button>
+                <p class="newsletter-note">By subscribing you agree to our privacy policy. We never share your data.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="./jquery.js"></script>
+    <script src="./script.js" type="text/javascript"></script>
+    <script>
+        // ------- Text Animations -------
+        window.addEventListener('DOMContentLoaded', () => {
+            // Hero animation
+            setTimeout(() => {
+                document.querySelectorAll('.articles-hero .reveal-item').forEach(el => {
+                    el.classList.add('active');
+                });
+            }, 100);
+
+            // Intersection Observer for other titles
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.section-label .reveal-item').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // ------- Coordinated Slider & Filter Logic -------
+        const slides = document.querySelectorAll('.feat-slide');
+        const featuredSection = document.getElementById('featured');
+        let filteredSlides = Array.from(slides);
+        let currentSlideIdx = 0;
+
+        function updateSlider(category) {
+            // Update filtered slides pool
+            if (category === 'all') {
+                filteredSlides = Array.from(slides);
+            } else {
+                filteredSlides = Array.from(slides).filter(s => s.dataset.cat === category);
+            }
+
+            // Handle section visibility
+            if (filteredSlides.length === 0) {
+                featuredSection.style.opacity = '0';
+                setTimeout(() => { featuredSection.style.display = 'none'; }, 400);
+            } else {
+                featuredSection.style.display = 'block';
+                setTimeout(() => { featuredSection.style.opacity = '1'; }, 10);
+                
+                // Reset to first slide of new pool
+                currentSlideIdx = 0;
+                showSlide(currentSlideIdx);
+            }
+        }
+
+        function showSlide(idx) {
+            // Hide all slides first
+            slides.forEach(s => s.style.display = 'none');
+            
+            // Show only the current slide from the filtered pool
+            if (filteredSlides[idx]) {
+                const targetSlide = filteredSlides[idx];
+                targetSlide.style.display = 'grid';
+                
+                // Slide reveal animation
+                const content = targetSlide.querySelectorAll('.featured-card-title, .featured-card-excerpt, .read-btn');
+                content.forEach((item, i) => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(15px)';
+                    setTimeout(() => {
+                        item.style.transition = 'all 0.7s cubic-bezier(0.19, 1, 0.22, 1)';
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 100 + (i * 100));
+                });
+            }
+        }
+
+        document.getElementById('feat-next').addEventListener('click', () => {
+            if (filteredSlides.length <= 1) return;
+            currentSlideIdx = (currentSlideIdx + 1) % filteredSlides.length;
+            showSlide(currentSlideIdx);
+        });
+
+        document.getElementById('feat-prev').addEventListener('click', () => {
+            if (filteredSlides.length <= 1) return;
+            currentSlideIdx = (currentSlideIdx - 1 + filteredSlides.length) % filteredSlides.length;
+            showSlide(currentSlideIdx);
+        });
+
+        // ------- Premium Category Filter (Coordinated) -------
+        const catBtns = document.querySelectorAll('.cat-btn');
+        const grid = document.getElementById('article-grid');
+        const cards = document.querySelectorAll('#article-grid .article-card');
+
+        catBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.classList.contains('active')) return;
+
+                catBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const cat = btn.dataset.cat;
+
+                // 1. Update Grid
+                grid.classList.add('filtering');
+                setTimeout(() => {
+                    cards.forEach(card => {
+                        if (cat === 'all' || card.dataset.cat === cat) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                    setTimeout(() => { grid.classList.remove('filtering'); }, 50);
+                }, 400);
+
+                // 2. Update Slider (NEW)
+                updateSlider(cat);
+            });
+        });
+
+        // Initialize slider with 'all'
+        updateSlider('all');
+
+        // ------- Newsletter Submit -------
+        function handleNewsletterSubmit() {
+            const email = document.getElementById('nl-email').value;
+            if (email && email.includes('@')) {
+                window.location.href = '404.html';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        }
+    </script>
+    <!-- ====== FOOTER ====== -->
+    <footer class="custom-footer">
+        <div class="footer-nav-row">
+            <a href="index.html" class="footer-nav-link">HOME</a>
+            <a href="about.html" class="footer-nav-link">ABOUT</a>
+            <a href="articles.html" class="footer-nav-link">ARTICLES</a>
+            <a href="contact.html" class="footer-nav-link">CONTACT</a>
+            <a href="login.html" class="footer-nav-link">LOGIN</a>
+            <a href="404.html" class="footer-nav-link">STYLE GUIDE</a>
+            <a href="404.html" class="footer-nav-link">LICENSING</a>
+            <a href="404.html" class="footer-nav-link">CHANGELOG</a>
+        </div>
+        <div class="footer-logo-split">
+            <div class="logo-part logo-black">STA</div>
+            <div class="logo-part logo-white">CKLY</div>
+        </div>
+        <div class="footer-credits">
+            This is a <a href="index.html">Stackly News Company</a> template | Powered by <a href="404.html">Salem Headquarters</a>
+        </div>
+        <div class="social-pill-container">
+            <a href="404.html" class="social-pill">TWITTER</a>
+            <a href="404.html" class="social-pill">FACEBOOK</a>
+            <a href="404.html" class="social-pill">LINKEDIN</a>
+        </div>
+    </footer>
+</body>
+</html>

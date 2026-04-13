@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Login — Stackly News</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link href="./style.css" rel="stylesheet" type="text/css"/>
+    <link href="assets/icons/favicon.svg" rel="shortcut icon" type="image/x-icon"/>
+    <link href="assets/icons/webclip.svg" rel="apple-touch-icon"/>
+    <script src="./webfont.js" type="text/javascript"></script>
+    <script>WebFont.load({ google: { families: ["Roboto Condensed:300,700", "Inter:300,400,600,700"] } });</script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Inter, sans-serif; background: #fff; color: #000; min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* ── Auth Layout ── */
+        .auth-wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+        .auth-brand {
+            background: #000; color: #fff;
+            display: flex; flex-direction: column;
+            padding: 60px 56px;
+            position: sticky; top: 0; height: 100vh;
+            overflow: hidden;
+        }
+        .auth-brand-logo {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 2.5rem; font-weight: 700; letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        .auth-brand-tagline {
+            margin-top: auto; margin-bottom: 40px;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: clamp(3rem, 5vw, 5rem); font-weight: 700; line-height: 0.9;
+            text-transform: uppercase;
+        }
+        .auth-brand-sub { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 340px; }
+        .auth-brand-ticker {
+            margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 24px;
+            font-size: 13px; color: rgba(255,255,255,0.35); letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        .auth-form-area {
+            display: flex; align-items: center; justify-content: center;
+            padding: 60px 56px; background: #fff;
+            overflow-y: auto;
+        }
+        .auth-form-inner { width: 100%; max-width: 420px; }
+
+        /* ── Role Toggle ── */
+        .role-toggle {
+            display: flex; border: 1px solid #000; margin-bottom: 48px;
+            overflow: hidden;
+        }
+        .role-btn {
+            flex: 1; padding: 14px; border: none; background: transparent; cursor: pointer;
+            font-family: 'Roboto Condensed', sans-serif; font-size: 14px; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase;
+            transition: background 0.3s, color 0.3s;
+        }
+        .role-btn.active { background: #000; color: #fff; }
+
+        /* ── Form ── */
+        .auth-title { font-family: 'Roboto Condensed', sans-serif; font-size: 2.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
+        .auth-sub { font-size: 15px; color: #666; margin-bottom: 40px; }
+        .auth-sub a { color: #000; font-weight: 600; }
+
+        .field-group { margin-bottom: 28px; }
+        .field-label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; color: #333; }
+        .field-input {
+            width: 100%; padding: 16px 18px;
+            border: 1px solid #ccc; background: #fff; outline: none;
+            font-family: Inter, sans-serif; font-size: 15px;
+            transition: border-color 0.3s;
+        }
+        .field-input:focus { border-color: #000; }
+        .field-input.error { border-color: #e00; }
+        .field-error { font-size: 12px; color: #e00; margin-top: 6px; display: none; }
+        .field-error.visible { display: block; }
+
+        .form-extras { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+        .form-extras a { font-size: 13px; color: #000; font-weight: 600; text-decoration: none; border-bottom: 1px solid #000; }
+
+        .submit-btn {
+            width: 100%; padding: 20px; background: #000; color: #fff; border: none; cursor: pointer;
+            font-family: 'Roboto Condensed', sans-serif; font-size: 1rem; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase; transition: background 0.3s;
+        }
+        .submit-btn:hover { background: #222; }
+
+        .auth-divider { display: flex; align-items: center; gap: 16px; margin: 32px 0; color: #bbb; font-size: 13px; }
+        .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: #eee; }
+        .other-auth-link {
+            display: block; width: 100%; padding: 16px; text-align: center; border: 1px solid #000;
+            font-family: 'Roboto Condensed', sans-serif; font-size: 14px; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase; text-decoration: none; color: #000;
+            transition: background 0.3s, color 0.3s;
+        }
+        .other-auth-link:hover { background: #000; color: #fff; }
+
+        /* ── Password Toggle ── */
+        .pw-wrap { position: relative; }
+        .pw-toggle { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; user-select: none; }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .auth-wrap { grid-template-columns: 1fr; }
+            .auth-brand { display: none; }
+            .auth-form-area { padding: 40px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="auth-wrap">
+    <!-- Brand Panel -->
+    <div class="auth-brand">
+        <a href="index.html" class="auth-brand-logo" style="text-decoration: none; color: inherit;">Stackly News</a>
+        <div>
+            <div class="auth-brand-tagline">Salem's<br>Voice.<br>Yours.</div>
+            <p class="auth-brand-sub">Sign in to access your personalized news feed, saved articles, and community features powered by Stackly News.</p>
+        </div>
+        <div class="auth-brand-ticker">Salem · Tamil Nadu · Independent since 2020</div>
+    </div>
+
+    <!-- Form Panel -->
+    <div class="auth-form-area">
+        <div class="auth-form-inner">
+            <div class="role-toggle">
+                <button class="role-btn active" id="role-user" onclick="setRole('user')">👤 User Login</button>
+                <button class="role-btn" id="role-admin" onclick="setRole('admin')">🛡 Admin Login</button>
+            </div>
+
+            <h1 class="auth-title">Welcome<br>Back.</h1>
+            <p class="auth-sub">Don't have an account? <a href="signup.html">Sign Up</a></p>
+
+            <form id="login-form" novalidate>
+                <div class="field-group">
+                    <label class="field-label">Email Address</label>
+                    <input type="email" class="field-input" id="email" placeholder="you@example.com" autocomplete="email"/>
+                    <div class="field-error" id="email-err">Please enter a valid email address.</div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Password</label>
+                    <div class="pw-wrap">
+                        <input type="password" class="field-input" id="password" placeholder="Your password" autocomplete="current-password"/>
+                        <span class="pw-toggle" onclick="togglePw('password',this)">SHOW</span>
+                    </div>
+                    <div class="field-error" id="password-err">Password must be at least 8 characters.</div>
+                </div>
+
+                <div class="form-extras">
+                    <label style="display:flex;gap:8px;align-items:center;font-size:13px;cursor:pointer;">
+                        <input type="checkbox" id="remember"/> Remember me
+                    </label>
+                    <a href="forgotpassword.html">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="submit-btn">Sign In →</button>
+                <div class="auth-divider">or</div>
+                <a href="signup.html" class="other-auth-link">Create an Account</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    let activeRole = 'user';
+
+    function setRole(role) {
+        activeRole = role;
+        document.getElementById('role-user').classList.toggle('active', role === 'user');
+        document.getElementById('role-admin').classList.toggle('active', role === 'admin');
+    }
+
+    function togglePw(id, btn) {
+        const input = document.getElementById(id);
+        if (input.type === 'password') { input.type = 'text'; btn.textContent = 'HIDE'; }
+        else { input.type = 'password'; btn.textContent = 'SHOW'; }
+    }
+
+    function showError(inputId, errId, show) {
+        const input = document.getElementById(inputId);
+        const err = document.getElementById(errId);
+        input.classList.toggle('error', show);
+        err.classList.toggle('visible', show);
+    }
+
+    function validateEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        let valid = true;
+
+        if (!validateEmail(email)) { showError('email', 'email-err', true); valid = false; }
+        else showError('email', 'email-err', false);
+
+        if (password.length < 8) { showError('password', 'password-err', true); valid = false; }
+        else showError('password', 'password-err', false);
+
+        if (!valid) return;
+
+        // Save to sessionStorage
+        sessionStorage.setItem('sn_email', email);
+        sessionStorage.setItem('sn_role', activeRole);
+        // Try to read name from signup
+        if (!sessionStorage.getItem('sn_name')) sessionStorage.setItem('sn_name', email.split('@')[0]);
+
+        window.location.href = activeRole === 'admin' ? 'admin-dashboard.html' : 'user-dashboard.html';
+    });
+</script>
+</body>
+</html>

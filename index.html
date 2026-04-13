@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<!-- This site was created in Webflow. https://webflow.com -->
+<!-- Last Published: Mon Feb 27 2023 16:55:44 GMT+0000 (Coordinated Universal Time) -->
+<html data-wf-domain="everum.webflow.io" data-wf-page="629ee874d16ec4a408184443"
+  data-wf-site="629ee874d16ec4817f184442">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Stackly News — Salem's Independent Voice</title>
+  <meta
+    content="Stackly News delivers premium, local-first reporting from Salem. Breaking news, travel, and cultural stories crafted for the modern reader."
+    name="description" />
+  <meta content="Stackly News — Salem's Independent Voice" property="og:title" />
+  <meta
+    content="Stackly News delivers premium, local-first reporting from Salem. Breaking news, travel, and cultural stories crafted for the modern reader."
+    property="og:description" />
+  <meta content="Stackly News — Salem's Independent Voice" property="twitter:title" />
+  <meta
+    content="Stackly News delivers premium, local-first reporting from Salem. Breaking news, travel, and cultural stories crafted for the modern reader."
+    property="twitter:description" />
+  <meta property="og:type" content="website" />
+  <meta content="summary_large_image" name="twitter:card" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta content="Webflow" name="generator" />
+  <link href="./style.css" rel="stylesheet" type="text/css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@800&display=swap"
+    rel="stylesheet"
+    />
+  <style>
+    /* 3D Book Gallery CSS */
+    @property --page-rotate {
+      syntax: "<angle>";
+      inherits: true;
+      initial-value: 0deg;
+    }
+    @property --spine-shift {
+      syntax: "<length>";
+      inherits: true;
+      initial-value: 0px;
+    }
+    .scene {
+      width: 100%;
+      height: 100svh;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      background-image: url("assets/images/heroooo.webp");
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: overlay;
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #000;
+    }
+
+    .bg-typography {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      text-align: center;
+      font-size: clamp(4rem, 15vw, 15rem);
+      font-weight: 800;
+      line-height: 0.8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5vw;
+      pointer-events: none;
+      z-index: 0;
+      font-family: "Outfit", sans-serif;
+    }
+
+    .bg-typography span {
+      display: block;
+      background-image: url("assets/images/img-hero.webp");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    .galeria-book-3d {
+      position: relative;
+      width: 200px;
+      height: 300px;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      --spine-shift: 0px;
+      transform: translateX(var(--spine-shift));
+      transition: --spine-shift 0.5s ease;
+    }
+
+    .galeria-book-3d.book-open {
+      --spine-shift: 100px;
+    }
+
+    .galeria-book-3d__item {
+      position: absolute;
+      width: 200px;
+      height: 300px;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform-origin: left center;
+      --page-rotate: 0deg;
+      transform: rotateY(var(--page-rotate));
+      transition: --page-rotate 0.5s ease-in-out, z-index 0s;
+      transition-delay: calc((4 - var(--i)) * 0.1s),
+        calc((4 - var(--i)) * 0.1s + 0.25s);
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      z-index: calc(10 - var(--i));
+    }
+
+    .galeria-book-3d__item.is-open {
+      --page-rotate: -180deg;
+      transition-delay: 0s, 0s;
+      z-index: calc(20 + var(--i));
+    }
+
+    .galeria-book-3d__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #f4f4f4;
+      backface-visibility: hidden;
+    }
+
+    .galeria-book-3d__item img:nth-child(2) {
+      transform: rotateY(180deg) translateZ(1px);
+      z-index: 1;
+    }
+    @media (min-width: 992px) {
+      html.w-mod-js:not(.w-mod-ix) [data-w-id="5d971e71-7e0f-c1d0-a4db-9fa0415cbf4b"] {
+        width: 100%;
+        height: 100%;
+      }
+
+      html.w-mod-js:not(.w-mod-ix) [data-w-id="62c9e577-73bf-f800-73b1-b1ea7e3062a3"] {
+        width: 100%;
+        height: 100%;
+      }
+
+      html.w-mod-js:not(.w-mod-ix) [data-w-id="239a8603-236c-f7f5-9653-5147e1eaab15"] {
+        width: 0%;
+        height: 0%;
+      }
+
+      html.w-mod-js:not(.w-mod-ix) [data-w-id="04eebb40-ab4a-8e10-0088-afe594b6bdb4"] {
+        -webkit-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        -moz-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        -ms-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+      }
+
+      html.w-mod-js:not(.w-mod-ix) [data-w-id="2d24332d-3311-6393-6b28-4e6e6047b721"] {
+        -webkit-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        -moz-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        -ms-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+      }
+
+      html.w-mod-js:not(.w-mod-ix) [data-w-id="4da8f0e6-6630-907f-af08-4fddf45b523e"] {
+        -webkit-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        -moz-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        -ms-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+      }
+
+      html.w-mod-js:not(.w-mod-ix) [data-w-id="3ee16d71-dee6-a04e-0a3e-d9dcd2481df1"] {
+        -webkit-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        -moz-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        -ms-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+      }
+
+      html.w-mod-js:not(.w-mod-ix) [data-w-id="5d482baa-2cc4-b442-21ec-3cab91330424"] {
+        -webkit-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        -moz-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        -ms-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+      }
+
+      html.w-mod-js:not(.w-mod-ix) [data-w-id="f3bcd285-3ec1-c87d-a3fe-b7d27aff632a"] {
+        -webkit-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        -moz-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        -ms-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous" />
+  <script src="./webfont.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    WebFont.load({
+      google: {
+        families: ["Roboto Condensed:300,300italic,regular,italic,700,700italic", "Inter:200,300,regular,500,600,700,800"]
+      }
+    });
+  </script>
+  <script type="text/javascript">
+    !function (o, c) {
+      var n = c.documentElement
+        , t = " w-mod-";
+      n.className += t + "js",
+        ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
+    }(window, document);
+  </script>
+  <link href="assets/icons/favicon.svg"
+    rel="shortcut icon" type="image/x-icon" />
+  <link href="assets/icons/webclip.svg"
+    rel="apple-touch-icon" />
+  <style>
+    .item-hover-button {
+      pointer-events: none;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    .w-webflow-badge {
+      display: none !important;
+    }
+
+    /* Custom Dispatch-style Footer */
+    .custom-footer {
+      background-color: #000;
+      color: #fff;
+      padding: 100px 44px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-nav-row {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 80px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-nav-link {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .footer-logo-split {
+      display: flex;
+      border: 1px solid #fff;
+      margin-bottom: 50px;
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .logo-part {
+      padding: 40px 60px;
+      font-size: 12vw;
+      line-height: 0.8;
+    }
+
+    .logo-black {
+      background-color: #000;
+      color: #fff;
+    }
+
+    .logo-white {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .footer-credits {
+      font-family: Inter, sans-serif;
+      font-size: 16px;
+      margin-bottom: 80px;
+      opacity: 1;
+      text-transform: none;
+    }
+
+    .footer-credits a {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    .social-pill-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .social-pill {
+      background-color: #fff;
+      color: #000;
+      padding: 14px 60px;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+      transition: transform 0.2s;
+    }
+
+    .social-pill:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 767px) {
+      .logo-part {
+        padding: 20px 30px;
+        font-size: 15vw;
+      }
+      .footer-nav-row {
+        gap: 20px;
+      }
+      .footer-nav-link {
+        font-size: 14px;
+      }
+      .social-pill {
+        padding: 12px 40px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body class="body">
+  <div class="item-hover-button global">
+    <div class="item-hover-button-inner">
+      <div class="medium-text for-empty-button">read article</div>
+    </div>
+  </div>
+  <div data-w-id="6bd6134a-6f07-7944-5810-de23557446a9" class="logo-animation-trigger"></div>
+  <div data-animation="default" data-collapse="medium" data-duration="600" data-easing="ease" data-easing2="ease"
+    role="banner" class="navbar w-nav">
+    <div class="wide-container">
+      <div class="navbar-home-container">
+        <div class="brand-home">
+          <div class="brand-home-inner">
+            <div data-w-id="2c743e60-d2e6-1732-7a54-d244097b333e"
+              style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+              class="home-logo-text">s</div>
+            <div data-w-id="42c06800-422d-6347-b9bc-2f8de3f06b2e"
+              style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+              class="home-logo-text">t</div>
+            <div data-w-id="10934b72-e7a5-a491-8492-b0fed6bb1dce"
+              style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+              class="home-logo-text">a</div>
+            <div data-w-id="fcc3167f-34aa-c657-e6b3-4dd7f11d812d"
+              style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+              class="home-logo-text">c</div>
+            <div data-w-id="22b8b111-40c3-7ce6-d938-49eaa8e7baf5"
+              style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+              class="home-logo-text">k</div>
+            <div data-w-id="22b8b111-40c3-7ce6-d938-49eaa8e7baf5"
+              style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+              class="home-logo-text">l</div>
+            <div data-w-id="ca42dd0f-78e3-9242-d5a2-675ad7e868a4"
+              style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+              class="home-logo-text">y</div>
+          </div>
+        </div>
+        <nav role="navigation" class="nav-menu w-nav-menu">
+          <a href="index.html" aria-current="page" class="nav-link-text w-nav-link w--current">Home</a>
+          <a href="about.html" class="nav-link-text w-nav-link">about</a>
+          <a href="articles.html" class="nav-link-text w-nav-link">articles</a>
+          <a href="contact.html" class="nav-link-text w-nav-link">contact</a>
+          <a href="login.html" class="nav-link-text w-nav-link">login</a>
+        </nav>
+        <div class="menu-button w-nav-button">
+          <div data-w-id="b571a53c-b620-0fd2-0034-5bae78ff3c59"
+            style="opacity:0;-webkit-transform:translate3d(0, 20px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 20px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 20px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 20px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+            class="menu-button-inner">
+            <div class="menu-line"></div>
+            <div class="menu-line center"></div>
+            <div class="menu-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="desktop-links-container">
+    <div class="wide-container">
+      <div class="nav-links-in-sticky">
+        <a href="index.html" aria-current="page" class="nav-link-container w-inline-block w--current">
+          <div class="wrapper">
+            <div data-w-id="9a24efa8-ccc2-bf63-d8ef-ce42f790d89a"
+              style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+              class="nav-link-text">home</div>
+          </div>
+          <div class="outer-link-line">
+            <div class="inner-link-line"></div>
+          </div>
+        </a>
+        <a href="about.html" class="nav-link-container w-inline-block">
+          <div class="wrapper">
+            <div data-w-id="4202184a-4b15-8b00-180e-2934639237fc"
+              style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+              class="nav-link-text">about</div>
+          </div>
+          <div class="outer-link-line">
+            <div class="inner-link-line"></div>
+          </div>
+        </a>
+        <a href="articles.html" class="nav-link-container w-inline-block">
+          <div class="wrapper">
+            <div data-w-id="de00d664-8e08-84d2-1445-a50dcf954330"
+              style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+              class="nav-link-text">articles</div>
+          </div>
+          <div class="outer-link-line">
+            <div class="inner-link-line"></div>
+          </div>
+        </a>
+        <a href="contact.html" class="nav-link-container w-inline-block">
+          <div class="wrapper">
+            <div data-w-id="e4192493-b960-3ded-53e0-7ca004dd9a0d"
+              style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+              class="nav-link-text">contact</div>
+          </div>
+          <div class="outer-link-line">
+            <div class="inner-link-line"></div>
+          </div>
+        </a>
+        <a href="login.html" class="nav-link-container w-inline-block">
+          <div class="wrapper">
+            <div class="nav-link-text">login</div>
+          </div>
+          <div class="outer-link-line">
+            <div class="inner-link-line"></div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div data-w-id="a19a006c-a9d4-424f-cbc1-6dba9c38ed67" style="opacity:0" class="navbar-line"></div>
+  </div>
+  <div data-w-id="c16136d3-d4b1-70f5-1a64-b26eaacaa07f" style="opacity:0" class="home-hero">
+    <div class="home-hero-blog w-dyn-list">
+      <div role="list" class="home-hero-blog w-dyn-items">
+        <div role="listitem" class="home-hero-blog-item w-dyn-item">
+          <div class="home-hero-blog-content">
+            <div class="hero-blog-top">
+              <div class="big-text">Salem&#x27;s Digital Front Page</div>
+              <div class="hero-blog-short-description">
+                <p class="paragraph">Based in the heart of Salem, Stackly News provides uncompromised reporting on the stories that matter most to our community. From local politics to global culture.</p>
+              </div>
+            </div>
+            <div class="blog-date-and-category">
+              <div class="small-text">6/7/2022</div>
+              <div style="background-color:#2869e7" class="category-dot"></div>
+              <div class="small-text">Travel</div>
+            </div>
+            <div class="big-square-button-container">
+              <a data-w-id="d820ef00-f633-4793-b178-24350cc58c53" href="404.html"
+                class="big-square-button w-inline-block">
+                <div class="small-text for-button dark">
+                  read<br />article
+                </div>
+                <div data-w-id="5d971e71-7e0f-c1d0-a4db-9fa0415cbf4b" class="square-button-background">
+                  <div class="small-text white for-button">
+                    read<br />article
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="home-hero-image-container">
+            <img src="assets/images/slidebg.webp"
+              loading="lazy" alt="" sizes="100vw"
+              class="image" />
+            <div class="big-square-button-container for-mobile">
+              <a data-w-id="62c9e577-73bf-f800-73b1-b1ea7e30629e" href="404.html"
+                class="big-square-button w-inline-block">
+                <div class="small-text for-button dark">
+                  read<br />article
+                </div>
+                <div data-w-id="62c9e577-73bf-f800-73b1-b1ea7e3062a3" class="square-button-background">
+                  <div class="small-text white for-button">
+                    read<br />article
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div data-w-id="1d6a440a-eee8-a5f4-244a-7fce2cdf0620" style="opacity:0"
+    class="section overflow-hidden no-padding-bottom">
+    <div class="wide-container">
+      <div data-w-id="294b5e63-4bac-87df-d04e-ce96430955a6" class="heading-2-wrapper">
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _1st">N</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _2nd">E</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _3rd">W</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _4th">S</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0); margin-left: 2vw;"
+          class="heading-2">A</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2">R</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2">T</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2">I</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2">C</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2">L</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2">E</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2">S</h2>
+      </div>
+    </div>
+    <div data-delay="4000" data-animation="slide" class="slider w-slider" data-autoplay="false" data-easing="ease"
+      data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0" data-nav-spacing="0"
+      data-duration="600" data-infinite="true">
+      <div data-w-id="d273027c-d548-5ec2-03de-366f1667ae2e" class="mask w-slider-mask">
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a href="404.html" class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img
+                      src="assets/images/img-post1.webp"
+                      loading="lazy" alt=""
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Nam pellentesque</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#ffe603" class="category-dot"></div>
+                    <div class="small-text">Personal</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a href="404.html" class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img
+                      src="assets/images/img-post2.webp"
+                      loading="lazy" alt=""
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Quis fringilla</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#ffe603" class="category-dot"></div>
+                    <div class="small-text">Personal</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a href="404.html" class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img
+                      src="assets/images/img-post3.webp"
+                      loading="lazy" alt=""
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Mauris suspendis</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#fb6410" class="category-dot"></div>
+                    <div class="small-text">Lifestyle</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a href="404.html" class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img
+                      src="assets/images/img-post4.webp"
+                      loading="lazy" alt=""
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Magna dictum</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#fb6410" class="category-dot"></div>
+                    <div class="small-text">Lifestyle</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a href="404.html" class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img
+                      src="assets/images/feat_tech.webp"
+                      loading="lazy" alt=""
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Orci cras sed</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#fb6410" class="category-dot"></div>
+                    <div class="small-text">Lifestyle</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a href="404.html" class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img
+                      src="assets/images/feat_local.webp"
+                      loading="lazy" alt=""
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Vel vit volutpat</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#9500ca" class="category-dot"></div>
+                    <div class="small-text">Fashion</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slider-arrow w-slider-arrow-left">
+        <img src="assets/icons/slider_arrow.svg"
+          loading="lazy" alt="Arrow Icon" class="slider-arrow-image" />
+      </div>
+      <div class="slider-arrow right w-slider-arrow-right">
+        <img src="assets/icons/slider_arrow.svg"
+          loading="lazy" alt="Arrow Icon" class="slider-arrow-image right" />
+      </div>
+      <div class="slide-nav w-slider-nav w-round"></div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="bg-typography">
+      <span>TOP</span>
+      <span>PICS</span>
+    </div>
+
+    <div class="galeria-book-3d">
+      <div class="galeria-book-3d__item" style="--i: 0">
+        <img
+           src="assets/images/img-post1.webp"
+           alt="Front 1"
+           />
+        <img
+           src="assets/images/img-post2.webp"
+           alt="Back 1"
+           />
+      </div>
+      <div class="galeria-book-3d__item" style="--i: 1">
+        <img
+           src="assets/images/img-post3.webp"
+           alt="Front 2"
+           />
+        <img
+           src="assets/images/img-post4.webp"
+           alt="Back 2"
+           />
+      </div>
+      <div class="galeria-book-3d__item" style="--i: 2">
+        <img
+           src="assets/images/feat_local.webp"
+           alt="Front 3"
+           />
+        <img
+           src="assets/images/pexels-afhamhmsyri-34021102.webp"
+           alt="Back 3"
+           />
+      </div>
+      <div class="galeria-book-3d__item" style="--i: 3">
+        <img
+           src="assets/images/img-hero.webp"
+           alt="Front 4"
+           />
+        <img
+           src="assets/images/pexels-othmane-ettalbi-2148497459-30374243.webp"
+           alt="Back 4"
+           />
+      </div>
+      <div class="galeria-book-3d__item" style="--i: 4">
+        <img
+           src="assets/images/pexels-alperen-23825952.webp"
+           alt="Front 5"
+           />
+        <img
+           src="assets/images/pexels-thefullonmonet-17609922.webp"
+           alt="Back 5"
+           />
+      </div>
+    </div>
+  </div>
+  <div class="section overflow-hidden no-padding-bottom">
+    <div class="wide-container">
+      <div data-w-id="04eebb40-ab4a-8e10-0088-afe594b6bd9b" class="heading-2-wrapper">
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _1st">N</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _2nd">E</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _3rd">W</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _4th">S</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0); margin-left: 2vw;"
+          class="heading-2">A</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2">R</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2">T</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2">I</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2">C</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2">L</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2">E</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2">S</h2>
+      </div>
+    </div>
+    <div data-delay="4000" data-animation="slide" class="slider w-slider" data-autoplay="false" data-easing="ease"
+      data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0" data-nav-spacing="0"
+      data-duration="600" data-infinite="true">
+      <div data-w-id="04eebb40-ab4a-8e10-0088-afe594b6bdad" class="mask w-slider-mask">
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a data-w-id="04eebb40-ab4a-8e10-0088-afe594b6bdb2" href="404.html"
+                  class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img alt="" loading="lazy" data-w-id="04eebb40-ab4a-8e10-0088-afe594b6bdb4"
+                      src="assets/images/img-post1.webp"
+                      sizes="(max-width: 479px) 60vw, (max-width: 767px) 49vw, (max-width: 991px) 304.3125px, (max-width: 1439px) 28vw, (max-width: 1919px) 304.3125px, 21vw"
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Quis fringilla</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#ffe603" class="category-dot"></div>
+                    <div class="small-text">Personal</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a data-w-id="2d24332d-3311-6393-6b28-4e6e6047b71f" href="404.html"
+                  class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img alt="" loading="lazy" data-w-id="2d24332d-3311-6393-6b28-4e6e6047b721"
+                      src="assets/images/img-post2.webp"
+                      sizes="(max-width: 479px) 61vw, (max-width: 767px) 49vw, (max-width: 991px) 383.1875px, (max-width: 1439px) 28vw, (max-width: 1919px) 383.1875px, 27vw"
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Mauris suspendis</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#fb6410" class="category-dot"></div>
+                    <div class="small-text">Lifestyle</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a data-w-id="4da8f0e6-6630-907f-af08-4fddf45b523c" href="404.html"
+                  class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img alt="" loading="lazy" data-w-id="4da8f0e6-6630-907f-af08-4fddf45b523e"
+                      src="assets/images/img-post3.webp"
+                      sizes="(max-width: 479px) 60vw, (max-width: 767px) 49vw, (max-width: 991px) 313.609375px, (max-width: 1439px) 28vw, (max-width: 1919px) 313.609375px, 22vw"
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Magna dictum</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#fb6410" class="category-dot"></div>
+                    <div class="small-text">Lifestyle</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a data-w-id="3ee16d71-dee6-a04e-0a3e-d9dcd2481def" href="404.html"
+                  class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img alt="" loading="lazy" data-w-id="3ee16d71-dee6-a04e-0a3e-d9dcd2481df1"
+                      src="assets/images/img-post4.webp"
+                      sizes="(max-width: 479px) 60vw, (max-width: 767px) 49vw, (max-width: 991px) 294.140625px, (max-width: 1439px) 28vw, (max-width: 1919px) 294.140625px, 21vw"
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Orci cras sed</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#fb6410" class="category-dot"></div>
+                    <div class="small-text">Lifestyle</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a data-w-id="5d482baa-2cc4-b442-21ec-3cab91330422" href="404.html"
+                  class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img alt="" loading="lazy" data-w-id="5d482baa-2cc4-b442-21ec-3cab91330424"
+                      src="assets/images/feat_local.webp"
+                      sizes="(max-width: 479px) 60vw, (max-width: 767px) 49vw, (max-width: 991px) 356.375px, (max-width: 1439px) 28vw, (max-width: 1919px) 356.375px, 25vw"
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Vel vit volutpat</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#9500ca" class="category-dot"></div>
+                    <div class="small-text">Fashion</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a data-w-id="f3bcd285-3ec1-c87d-a3fe-b7d27aff6328" href="404.html"
+                  class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img alt="" loading="lazy" data-w-id="f3bcd285-3ec1-c87d-a3fe-b7d27aff632a"
+                      src="assets/images/feat_tech.webp"
+                      sizes="(max-width: 479px) 60vw, (max-width: 767px) 49vw, (max-width: 991px) 337.65625px, (max-width: 1439px) 28vw, (max-width: 1919px) 337.65625px, 24vw"
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Nunc eget diam</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#9500ca" class="category-dot"></div>
+                    <div class="small-text">Fashion</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slider-arrow w-slider-arrow-left">
+        <img src="https://cdn.prod.website-files.com/629ee874d16ec4817f184442/62a03d8fc79f2476327f02ea_slider_arrow.svg"
+          loading="lazy" alt="Arrow Icon" class="slider-arrow-image" />
+      </div>
+      <div class="slider-arrow right w-slider-arrow-right">
+        <img src="https://cdn.prod.website-files.com/629ee874d16ec4817f184442/62a03d8fc79f2476327f02ea_slider_arrow.svg"
+          loading="lazy" alt="Arrow Icon" class="slider-arrow-image right" />
+      </div>
+      <div class="slide-nav w-slider-nav w-round"></div>
+    </div>
+  </div>
+  <div class="section bottom-line">
+    <div class="wide-container">
+      <div class="text-info-section-container">
+        <h3 class="heading-3">A Salem-based team dedicated to bringing you value with every story</h3>
+      </div>
+      <div class="text-and-button-container">
+        <div class="medium-text-container">
+          <div class="medium-text">Stackly News Company is rooted in Salem, delivering independent journalism that cuts through the noise. We believe in reporting that is as vibrant and resilient as the community we serve.</div>
+        </div>
+        <div class="empty-button-container">
+          <div class="horizontal-line"></div>
+          <a data-w-id="e700d1a4-b2e9-6361-444c-32204f1e10cc" href="/about" class="empty-button w-inline-block">
+            <div class="medium-text for-empty-button">about us</div>
+            <div data-w-id="239a8603-236c-f7f5-9653-5147e1eaab15" class="empty-button-overlay">
+              <div class="medium-text for-empty-button white">about us</div>
+            </div>
+          </a>
+          <div class="horizontal-line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="section overflow-hidden no-padding-bottom">
+    <div class="wide-container">
+      <div data-w-id="f260abc1-80c1-e73c-934e-5ed9869f90ad" class="heading-2-wrapper">
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _1st">p</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _2nd">o</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _3rd">p</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _4th">u</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _5th">l</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _6th">a</h2>
+        <h2
+          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+          class="heading-2 _7th">r</h2>
+      </div>
+    </div>
+    <div data-delay="4000" data-animation="slide" class="slider w-slider" data-autoplay="false" data-easing="ease"
+      data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0" data-nav-spacing="0"
+      data-duration="600" data-infinite="true">
+      <div data-w-id="f260abc1-80c1-e73c-934e-5ed9869f90bf" class="mask w-slider-mask">
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a href="/blog-posts/rhoncus-nullam" class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img
+                      src="assets/images/img-post1.webp"
+                      loading="lazy" alt=""
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Rhoncus nullam</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#ffe603" class="category-dot"></div>
+                    <div class="small-text">Personal</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a href="404.html" class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img
+                      src="assets/images/img-post2.webp"
+                      loading="lazy" alt=""
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Nam pellentesque</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#ffe603" class="category-dot"></div>
+                    <div class="small-text">Personal</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a href="/blog-posts/tellus-viverra" class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img
+                      src="assets/images/img-post3.webp"
+                      loading="lazy" alt=""
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Tellus viverra</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#9500ca" class="category-dot"></div>
+                    <div class="small-text">Fashion</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a href="/blog-posts/commodo-dolor" class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img
+                      src="assets/images/img-post4.webp"
+                      loading="lazy" alt=""
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Commodo dolor</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#2869e7" class="category-dot"></div>
+                    <div class="small-text">Travel</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a href="/blog-posts/vitae-nunc" class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img
+                      src="assets/images/feat_local.webp"
+                      loading="lazy" alt=""
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Vitae nunc</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#2869e7" class="category-dot"></div>
+                    <div class="small-text">Travel</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a href="/blog-posts/lacinia-bibendum" class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img
+                      src="assets/images/feat_tech.webp"
+                      loading="lazy" alt=""
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">Lacinia bibendum</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">6/7/2022</div>
+                    <div style="background-color:#2869e7" class="category-dot"></div>
+                    <div class="small-text">Travel</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slider-arrow w-slider-arrow-left">
+        <img src="assets/images/slider_arrow.svg"
+          loading="lazy" alt="Arrow Icon" class="slider-arrow-image" />
+      </div>
+      <div class="slider-arrow right w-slider-arrow-right">
+        <img src="https://cdn.prod.website-files.com/629ee874d16ec4817f184442/62a03d8fc79f2476327f02ea_slider_arrow.svg"
+          loading="lazy" alt="Arrow Icon" class="slider-arrow-image right" />
+      </div>
+      <div class="slide-nav w-slider-nav w-round"></div>
+    </div>
+  </div>
+  
+  <div data-w-id="bfd7f47a-3a86-2950-3ba2-a8a3697b7d7a" class="section overflow-hidden for-infinite-words">
+    <a data-w-id="d59cee9f-4230-4cd9-a27b-5f795f01a678" href="404.html"
+      class="infinite-words-container w-inline-block">
+      <div
+        style="-webkit-transform:translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+        class="infinite-words-inner-container">
+        <div class="infinite-word">
+          <h2 class="heading-2">All articles</h2>
+          <div class="infinite-word-underline"></div>
+          <div class="cursor">
+            <img src="https://cdn.prod.website-files.com/629ee874d16ec4817f184442/62a073af247288782d28c277_cursor.svg"
+              loading="lazy" alt="Cursor Icon" class="image" />
+          </div>
+        </div>
+        <div class="infinite-word-square"></div>
+        <div class="infinite-word">
+          <h2 class="heading-2">All articles</h2>
+          <div class="infinite-word-underline"></div>
+          <div class="cursor">
+            <img src="https://cdn.prod.website-files.com/629ee874d16ec4817f184442/62a073af247288782d28c277_cursor.svg"
+              loading="lazy" alt="Cursor Icon" class="image" />
+          </div>
+        </div>
+        <div class="infinite-word-square"></div>
+      </div>
+      <div
+        style="-webkit-transform:translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+        class="infinite-words-inner-container">
+        <div class="infinite-word">
+          <h2 class="heading-2">All articles</h2>
+          <div class="infinite-word-underline"></div>
+          <div class="cursor">
+            <img src="https://cdn.prod.website-files.com/629ee874d16ec4817f184442/62a073af247288782d28c277_cursor.svg"
+              loading="lazy" alt="Cursor Icon" class="image" />
+          </div>
+        </div>
+        <div class="infinite-word-square"></div>
+        <div class="infinite-word">
+          <h2 class="heading-2">All articles</h2>
+          <div class="infinite-word-underline"></div>
+          <div class="cursor">
+            <img src="https://cdn.prod.website-files.com/629ee874d16ec4817f184442/62a073af247288782d28c277_cursor.svg"
+              loading="lazy" alt="Cursor Icon" class="image" />
+          </div>
+        </div>
+        <div class="infinite-word-square"></div>
+      </div>
+      <div class="item-hover-button for-infinite-word">
+        <div class="item-hover-button-inner">
+          <div class="medium-text for-empty-button">all articles</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <footer class="custom-footer">
+    <div class="footer-nav-row">
+      <a href="index.html" class="footer-nav-link">HOME</a>
+      <a href="about.html" class="footer-nav-link">ABOUT</a>
+      <a href="articles.html" class="footer-nav-link">ARTICLES</a>
+      <a href="contact.html" class="footer-nav-link">CONTACT</a>
+      <a href="login.html" class="footer-nav-link">LOGIN</a>
+      <a href="404.html" class="footer-nav-link">STYLE GUIDE</a>
+      <a href="404.html" class="footer-nav-link">LICENSING</a>
+      <a href="404.html" class="footer-nav-link">CHANGELOG</a>
+    </div>
+
+    <div class="footer-logo-split">
+      <div class="logo-part logo-black">STA</div>
+      <div class="logo-part logo-white">CKLY</div>
+    </div>
+
+    <div class="footer-credits">
+      This is a <a href="index.html">Stackly News Company</a> template | Powered by <a href="404.html">Salem Headquarters</a>
+    </div>
+
+    <div class="social-pill-container">
+      <a href="404.html" class="social-pill">TWITTER</a>
+      <a href="404.html" class="social-pill">FACEBOOK</a>
+      <a href="404.html" class="social-pill">LINKEDIN</a>
+    </div>
+  </footer>
+  <script src="./jquery.js" type="text/javascript"></script>
+  <script src="./script.js" type="text/javascript"></script>
+  <script>
+    document.querySelectorAll('.galeria-book-3d__item').forEach(item => {
+        item.addEventListener('click', () => {
+            item.classList.toggle('is-open');
+            const gallery = item.parentElement;
+            const openItems = gallery.querySelectorAll('.is-open');
+            if (openItems.length > 0) {
+                gallery.classList.add('book-open');
+            } else {
+                gallery.classList.remove('book-open');
+            }
+        });
+    });
+  </script>
+</body>
+
+</html>

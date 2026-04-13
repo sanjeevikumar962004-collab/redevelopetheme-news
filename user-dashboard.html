@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>User Dashboard — Stackly News</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <script src="./webfont.js"></script>
+    <script>WebFont.load({ google: { families: ["Roboto Condensed:300,700", "Inter:300,400,600,700"] } });</script>
+    <link href="assets/icons/favicon.svg" rel="shortcut icon" type="image/x-icon"/>
+    <link href="assets/icons/webclip.svg" rel="apple-touch-icon"/>
+    <script src="./chart.min.js"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Inter, sans-serif; background: #f7f7f7; color: #000; display: flex; min-height: 100vh; }
+
+        /* ── Sidebar ── */
+        .sidebar {
+            width: 260px; background: #000; color: #fff;
+            display: flex; flex-direction: column;
+            position: fixed; top: 0; left: 0; height: 100vh;
+            padding: 0; z-index: 100; overflow-y: auto;
+        }
+        .sidebar-logo {
+            padding: 32px 28px 28px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-family: 'Roboto Condensed', sans-serif; font-size: 1.6rem; font-weight: 700; letter-spacing: 3px;
+        }
+        .sidebar-logo span { font-size: 11px; display: block; font-weight: 300; letter-spacing: 2px; opacity: 0.4; margin-top: 4px; text-transform: uppercase; }
+        .sidebar-user {
+            padding: 24px 28px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .sidebar-user-avatar {
+            width: 48px; height: 48px; background: #fff; color: #000;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-family: 'Roboto Condensed', sans-serif; font-size: 1.2rem; font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .sidebar-user-name { font-size: 14px; font-weight: 600; }
+        .sidebar-user-role { font-size: 11px; letter-spacing: 2px; opacity: 0.4; text-transform: uppercase; margin-top: 2px; }
+        .sidebar-user-email { font-size: 12px; opacity: 0.5; margin-top: 4px; word-break: break-all; }
+
+        .sidebar-nav { padding: 16px 0; flex: 1; }
+        .nav-section-label { padding: 20px 28px 8px; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.35; }
+        .sidebar-link {
+            display: flex; align-items: center; gap: 12px; padding: 13px 28px;
+            color: rgba(255,255,255,0.55); text-decoration: none; font-size: 14px; font-weight: 500;
+            transition: all 0.2s; position: relative;
+        }
+        .sidebar-link:hover, .sidebar-link.active { color: #fff; background: rgba(255,255,255,0.07); }
+        .sidebar-link.active::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #fff; }
+        .sidebar-link .icon { width: 18px; text-align: center; font-size: 16px; }
+
+        .sidebar-footer { padding: 20px 28px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .logout-btn { width: 100%; padding: 12px; background: transparent; color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15); cursor: pointer; font-family: 'Roboto Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s; }
+        .logout-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+        /* ── Main ── */
+        .main { margin-left: 260px; flex: 1; padding: 0; }
+        .top-bar {
+            background: #fff; border-bottom: 1px solid #eee;
+            padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 50;
+        }
+        .top-bar-title { font-family: 'Roboto Condensed', sans-serif; font-size: 1.4rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+        .top-bar-right { display: flex; gap: 16px; align-items: center; }
+        .top-bar-date { font-size: 13px; color: #888; }
+        .top-bar-tag { background: #000; color: #fff; padding: 6px 14px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+
+        .content { padding: 40px; }
+
+        /* ── Welcome Banner ── */
+        .welcome-banner {
+            background: #000; color: #fff; padding: 40px 48px; margin-bottom: 32px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .welcome-title { font-family: 'Roboto Condensed', sans-serif; font-size: 2.2rem; font-weight: 700; text-transform: uppercase; line-height: 0.95; }
+        .welcome-sub { font-size: 14px; opacity: 0.55; margin-top: 10px; }
+        .welcome-badge { background: #fff; color: #000; padding: 10px 24px; font-family: 'Roboto Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* ── Stats Grid ── */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #000; border: 1px solid #000; margin-bottom: 32px; }
+        .stat-card { background: #fff; padding: 32px 28px; }
+        .stat-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 12px; }
+        .stat-value { font-family: 'Roboto Condensed', sans-serif; font-size: 3rem; font-weight: 700; line-height: 1; }
+        .stat-change { font-size: 12px; color: #0a0; margin-top: 8px; }
+        .stat-change.down { color: #e00; }
+
+        /* ── Charts Grid ── */
+        .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px; }
+        .chart-card { background: #fff; border: 1px solid #e8e8e8; padding: 32px; }
+        .chart-title { font-family: 'Roboto Condensed', sans-serif; font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
+        .chart-sub { font-size: 13px; color: #888; margin-bottom: 28px; }
+        .chart-wrap { position: relative; height: 280px; }
+
+        /* ── Recent Articles ── */
+        .articles-card { background: #fff; border: 1px solid #e8e8e8; padding: 32px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+        .card-header-title { font-family: 'Roboto Condensed', sans-serif; font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+        .card-header-link { font-size: 13px; color: #000; font-weight: 600; text-decoration: none; border-bottom: 1px solid #000; }
+        .article-row { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #f0f0f0; align-items: flex-start; }
+        .article-row:last-child { border-bottom: none; }
+        .article-row-num { font-family: 'Roboto Condensed', sans-serif; font-size: 2rem; font-weight: 700; color: #eee; min-width: 44px; line-height: 1; }
+        .article-row-content { flex: 1; }
+        .article-row-tag { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 6px; }
+        .article-row-title { font-weight: 600; font-size: 15px; line-height: 1.4; }
+        .article-row-meta { font-size: 12px; color: #aaa; margin-top: 6px; }
+
+        /* Animations */
+        @keyframes countUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .stat-card { animation: countUp 0.6s ease backwards; }
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @media (max-width: 1200px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .charts-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 900px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; } .content { padding: 24px; } }
+    </style>
+</head>
+<body>
+
+<!-- ── Sidebar ── -->
+<aside class="sidebar">
+    <div class="sidebar-logo">STACKLY<span>News Dashboard</span></div>
+    <div class="sidebar-user">
+        <div class="sidebar-user-avatar" id="user-avatar">U</div>
+        <div class="sidebar-user-name" id="user-name">Reader</div>
+        <div class="sidebar-user-role">USER</div>
+        <div class="sidebar-user-email" id="user-email">—</div>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="nav-section-label">Overview</div>
+        <a href="#" class="sidebar-link active"><span class="icon">📊</span> Dashboard</a>
+        <a href="404.html" class="sidebar-link"><span class="icon">📰</span> My Articles</a>
+        <a href="404.html" class="sidebar-link"><span class="icon">🔖</span> Bookmarks</a>
+        <a href="404.html" class="sidebar-link"><span class="icon">💬</span> Comments</a>
+        <div class="nav-section-label">Discover</div>
+        <a href="articles.html" class="sidebar-link"><span class="icon">🗂</span> Browse Topics</a>
+        <a href="about.html" class="sidebar-link"><span class="icon">ℹ️</span> About Stackly</a>
+        <a href="contact.html" class="sidebar-link"><span class="icon">✉️</span> Contact</a>
+        <div class="nav-section-label">Account</div>
+        <a href="404.html" class="sidebar-link"><span class="icon">⚙️</span> Settings</a>
+    </nav>
+    <div class="sidebar-footer">
+        <button class="logout-btn" onclick="logout()">← Sign Out</button>
+    </div>
+</aside>
+
+<!-- ── Main ── -->
+<main class="main">
+    <div class="top-bar">
+        <div class="top-bar-title">Reader Dashboard</div>
+        <div class="top-bar-right">
+            <span class="top-bar-date" id="today-date"></span>
+            <span class="top-bar-tag">LIVE</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <!-- Welcome Banner -->
+        <div class="welcome-banner">
+            <div>
+                <div class="welcome-title" id="welcome-msg">Welcome Back,<br>Reader.</div>
+                <div class="welcome-sub" id="welcome-email">Salem's news, personalised for you.</div>
+            </div>
+            <div class="welcome-badge">Salem Edition · April 2026</div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Articles Read</div>
+                <div class="stat-value" data-target="142">0</div>
+                <div class="stat-change">↑ 18 this week</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Bookmarks</div>
+                <div class="stat-value" data-target="38">0</div>
+                <div class="stat-change">↑ 5 this week</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Topics Following</div>
+                <div class="stat-value" data-target="6">0</div>
+                <div class="stat-change">— steady</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Comments Posted</div>
+                <div class="stat-value" data-target="24">0</div>
+                <div class="stat-change down">↓ 2 this week</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-title">Reading Activity</div>
+                <div class="chart-sub">Articles read per day — last 30 days</div>
+                <div class="chart-wrap"><canvas id="readingChart"></canvas></div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">Topic Interest</div>
+                <div class="chart-sub">Your reading breakdown by category</div>
+                <div class="chart-wrap"><canvas id="categoryChart"></canvas></div>
+            </div>
+        </div>
+
+        <div class="charts-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="chart-card">
+                <div class="chart-title">Reading Time</div>
+                <div class="chart-sub">Avg. minutes per session this month</div>
+                <div class="chart-wrap"><canvas id="timeChart"></canvas></div>
+            </div>
+            <div class="articles-card">
+                <div class="card-header">
+                    <span class="card-header-title">Saved for Later</span>
+                    <a href="404.html" class="card-header-link">View All →</a>
+                </div>
+                <div class="article-row">
+                    <div class="article-row-num">01</div>
+                    <div class="article-row-content">
+                        <div class="article-row-tag">Local</div>
+                        <div class="article-row-title">Salem Council Approves Major Infrastructure Plan</div>
+                        <div class="article-row-meta">Katy Bourge · 8 min</div>
+                    </div>
+                </div>
+                <div class="article-row">
+                    <div class="article-row-num">02</div>
+                    <div class="article-row-content">
+                        <div class="article-row-tag">Technology</div>
+                        <div class="article-row-title">AI-Powered Crop Monitoring Arrives in Salem</div>
+                        <div class="article-row-meta">Max Becks · 6 min</div>
+                    </div>
+                </div>
+                <div class="article-row">
+                    <div class="article-row-num">03</div>
+                    <div class="article-row-content">
+                        <div class="article-row-tag">Environment</div>
+                        <div class="article-row-title">The Mettur Dam Water Crisis: Deep-Dive</div>
+                        <div class="article-row-meta">Sandra Vein · 12 min</div>
+                    </div>
+                </div>
+                <div class="article-row">
+                    <div class="article-row-num">04</div>
+                    <div class="article-row-content">
+                        <div class="article-row-tag">Culture</div>
+                        <div class="article-row-title">Revival of Salem's Traditional Silk Markets</div>
+                        <div class="article-row-meta">Mira Seth · 7 min</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // ── Load user data from sessionStorage ──
+    window.addEventListener('DOMContentLoaded', () => {
+        const name = sessionStorage.getItem('sn_name') || 'Reader';
+        const email = sessionStorage.getItem('sn_email') || '—';
+
+        const firstName = name.split(' ')[0];
+        document.getElementById('user-name').textContent = name;
+        document.getElementById('user-email').textContent = email;
+        document.getElementById('user-avatar').textContent = firstName[0].toUpperCase();
+        document.getElementById('welcome-msg').textContent = `Welcome Back,\n${firstName}.`;
+        document.getElementById('welcome-msg').innerHTML = `Welcome Back,<br>${firstName}.`;
+        document.getElementById('welcome-email').textContent = email !== '—' ? `${email} — Salem's news, personalised for you.` : `Salem's news, personalised for you.`;
+
+        document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+        // ── Animated counters ──
+        document.querySelectorAll('[data-target]').forEach(el => {
+            const target = parseInt(el.dataset.target);
+            let current = 0;
+            const step = Math.ceil(target / 40);
+            const timer = setInterval(() => {
+                current = Math.min(current + step, target);
+                el.textContent = current;
+                if (current >= target) clearInterval(timer);
+            }, 35);
+        });
+
+        // ── Reading Activity Chart (Line) ──
+        const ctx1 = document.getElementById('readingChart').getContext('2d');
+        const days = Array.from({length: 30}, (_, i) => `Apr ${i + 1}`);
+        const readData = [3,5,2,8,6,4,9,7,5,11,8,3,6,10,7,4,12,9,5,8,11,6,4,9,13,7,8,10,6,14];
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: days.filter((_, i) => i % 5 === 0),
+                datasets: [{
+                    label: 'Articles Read',
+                    data: readData.filter((_, i) => i % 5 === 0),
+                    fill: true,
+                    backgroundColor: 'rgba(0,0,0,0.06)',
+                    borderColor: '#000',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#000',
+                    pointRadius: 5,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                animation: { duration: 1200, easing: 'easeInOutQuart' },
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { display: false }, ticks: { font: { family: 'Roboto Condensed', weight: '700' } } },
+                    y: { grid: { color: '#f0f0f0' }, ticks: { font: { family: 'Inter' } } }
+                }
+            }
+        });
+
+        // ── Category Donut ──
+        const ctx2 = document.getElementById('categoryChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Local', 'Tech', 'Environment', 'Politics', 'Culture', 'Sports'],
+                datasets: [{
+                    data: [35, 22, 18, 12, 8, 5],
+                    backgroundColor: ['#000', '#333', '#555', '#777', '#999', '#bbb'],
+                    borderWidth: 0,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                animation: { animateRotate: true, duration: 1400, easing: 'easeInOutQuart' },
+                cutout: '65%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { font: { family: 'Roboto Condensed', weight: '700', size: 11 }, boxWidth: 12, padding: 16 }
+                    }
+                }
+            }
+        });
+
+        // ── Reading Time Bar Chart ──
+        const ctx3 = document.getElementById('timeChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Minutes',
+                    data: [18, 24, 15, 32, 20, 45, 38],
+                    backgroundColor: '#000',
+                    borderWidth: 0,
+                    borderRadius: 2
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                animation: { duration: 1000, easing: 'easeInOutQuart', delay: (ctx) => ctx.dataIndex * 80 },
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { display: false }, ticks: { font: { family: 'Roboto Condensed', weight: '700' } } },
+                    y: { grid: { color: '#f0f0f0' }, ticks: { font: { family: 'Inter' } } }
+                }
+            }
+        });
+    });
+
+    function logout() {
+        sessionStorage.clear();
+        window.location.href = 'login.html';
+    }
+</script>
+</body>
+</html>
