@@ -466,6 +466,194 @@
 </head>
 
 <body class="body">
+  <!-- ====== PREMIUM COMPASS PRELOADER (Black Logo Edition) ====== -->
+  <div id="stackly-preloader">
+      <div class="preloader-overlay"></div>
+      <div class="preloader-content">
+          <div class="compass-container">
+              <svg class="compass-svg" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="45" class="ring-track" />
+                  <circle cx="50" cy="50" r="45" class="ring-progress" />
+                  <text x="50" y="18" class="cardinal-point">N</text>
+                  <text x="82" y="53" class="cardinal-point">E</text>
+                  <text x="50" y="88" class="cardinal-point">S</text>
+                  <text x="18" y="53" class="cardinal-point">W</text>
+                  <g class="needle-group">
+                      <path d="M50 15 L56 50 L50 85 L44 50 Z" class="needle-main" />
+                      <circle cx="50" cy="50" r="4" class="needle-pivot" />
+                  </g>
+              </svg>
+          </div>
+          <div class="reveal-brand-wrap">
+              <img src="whitelogo.webp" class="preloader-logo" alt="Stackly Logo" />
+              <div class="reveal-text-wrap">
+                  <span class="reveal-letter">N</span>
+                  <span class="reveal-letter">E</span>
+                  <span class="reveal-letter">W</span>
+                  <span class="reveal-letter">S</span>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <style>
+      #stackly-preloader {
+          position: fixed;
+          top: 0; left: 0; width: 100%; height: 100%;
+          z-index: 10000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #fff;
+          overflow: hidden;
+          transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+      .preloader-overlay {
+          position: absolute;
+          top: 0; left: 0; width: 100%; height: 100%;
+          background: #fff;
+      }
+      .preloader-content {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+      }
+      .compass-container {
+          width: 180px;
+          height: 180px;
+          position: relative;
+          transition: all 0.5s ease;
+      }
+      .compass-svg {
+          width: 100%;
+          height: 100%;
+          overflow: visible;
+      }
+      .ring-track {
+          fill: none;
+          stroke: #f0f0f0;
+          stroke-width: 1;
+      }
+      .ring-progress {
+          fill: none;
+          stroke: #000;
+          stroke-width: 2;
+          stroke-dasharray: 283;
+          stroke-dashoffset: 283;
+          animation: ringLoad 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+      }
+      .cardinal-point {
+          font-family: 'Roboto Condensed', sans-serif;
+          font-size: 10px;
+          font-weight: 700;
+          text-anchor: middle;
+          fill: #ccc;
+          transition: fill 0.3s;
+      }
+      .cardinal-point.active {
+          fill: #000;
+      }
+      .needle-group {
+          transform-origin: 50px 50px;
+          transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+      .needle-main {
+          fill: #000;
+      }
+      .needle-pivot {
+          fill: #fff;
+          stroke: #000;
+          stroke-width: 2;
+      }
+      
+      .reveal-brand-wrap {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 15px;
+          opacity: 0;
+          transform: translateY(30px);
+          transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+      .preloader-logo {
+          height: 40px;
+          width: auto;
+          filter: brightness(0); /* Make the white logo black */
+          margin-bottom: 5px;
+      }
+      .reveal-text-wrap {
+          display: flex;
+          gap: 10px;
+      }
+      .reveal-letter {
+          font-family: 'Roboto Condensed', sans-serif;
+          font-size: 32px;
+          font-weight: 700;
+          color: #000;
+          letter-spacing: 0.15em;
+          line-height: 1;
+      }
+      
+      @keyframes ringLoad {
+          to { stroke-dashoffset: 0; }
+      }
+      
+      /* Loading States */
+      body.preloader-active {
+          overflow: hidden;
+      }
+      #stackly-preloader.loaded {
+          opacity: 0;
+          pointer-events: none;
+      }
+  </style>
+
+  <script>
+      (function() {
+          const preloader = document.getElementById('stackly-preloader');
+          if (!preloader) return;
+          const needle = preloader.querySelector('.needle-group');
+          const points = preloader.querySelectorAll('.cardinal-point');
+          const revealBrand = preloader.querySelector('.reveal-brand-wrap');
+          const compass = preloader.querySelector('.compass-container');
+          
+          document.body.classList.add('preloader-active');
+          
+          const sequence = [
+              { deg: 0, active: 0 },    // N
+              { deg: 90, active: 1 },   // E
+              { deg: 180, active: 2 },  // S
+              { deg: 270, active: 3 },  // W
+              { deg: 360, active: 0 }   // N again
+          ];
+          
+          let step = 0;
+          
+          function animateNeedle() {
+              if (step < sequence.length) {
+                  const s = sequence[step];
+                  needle.style.transform = `rotate(${s.deg}deg)`;
+                  points.forEach((p, i) => p.classList.toggle('active', i === s.active));
+                  step++;
+                  setTimeout(animateNeedle, 600);
+              } else {
+                  compass.style.opacity = '0';
+                  compass.style.transform = 'scale(0.8)';
+                  setTimeout(() => {
+                      revealBrand.style.opacity = '1';
+                      revealBrand.style.transform = 'translateY(0)';
+                      setTimeout(() => {
+                          preloader.classList.add('loaded');
+                          document.body.classList.remove('preloader-active');
+                      }, 1500);
+                  }, 400);
+              }
+          }
+          setTimeout(animateNeedle, 300);
+      })();
+  </script>
   <div class="item-hover-button global">
     <div class="item-hover-button-inner">
       <div class="medium-text for-empty-button">read article</div>
@@ -627,10 +815,11 @@
       </div>
     </div>
   </div>
-  <div data-w-id="1d6a440a-eee8-a5f4-244a-7fce2cdf0620" style="opacity:0"
-    class="section overflow-hidden no-padding-bottom">
+ 
+
+  <div class="section overflow-hidden no-padding-bottom">
     <div class="wide-container">
-      <div data-w-id="294b5e63-4bac-87df-d04e-ce96430955a6" class="heading-2-wrapper">
+      <div data-w-id="04eebb40-ab4a-8e10-0088-afe594b6bd9b" class="heading-2-wrapper">
         <h2
           style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
           class="heading-2 _1st">N</h2>
@@ -672,25 +861,26 @@
     <div data-delay="4000" data-animation="slide" class="slider w-slider" data-autoplay="false" data-easing="ease"
       data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0" data-nav-spacing="0"
       data-duration="600" data-infinite="true">
-      <div data-w-id="d273027c-d548-5ec2-03de-366f1667ae2e" class="mask w-slider-mask">
+      <div data-w-id="04eebb40-ab4a-8e10-0088-afe594b6bdad" class="mask w-slider-mask">
         <div class="slide w-slide">
           <div class="single-blog-post w-dyn-list">
             <div role="list" class="single-blog-post w-dyn-items">
               <div role="listitem" class="single-blog-post-item w-dyn-item">
-                <a href="404.html" class="single-blog-post-item-inner w-inline-block">
+                <a data-w-id="04eebb40-ab4a-8e10-0088-afe594b6bdb2" href="404.html"
+                  class="single-blog-post-item-inner w-inline-block">
                   <div class="slide-image-wrapper">
-                    <img
+                    <img alt="" loading="lazy" data-w-id="04eebb40-ab4a-8e10-0088-afe594b6bdb4"
                       src="assets/images/img-post1.webp"
-                      loading="lazy" alt=""
+                      sizes="(max-width: 479px) 60vw, (max-width: 767px) 49vw, (max-width: 991px) 304.3125px, (max-width: 1439px) 28vw, (max-width: 1919px) 304.3125px, 21vw"
                       class="image" />
                   </div>
                   <div class="single-blog-heading">
-                    <div class="big-text">Nam pellentesque</div>
+                    <div class="big-text">Breakthrough in Personalized Medicine</div>
                   </div>
                   <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
+                    <div class="small-text">4/14/2026</div>
                     <div style="background-color:#ffe603" class="category-dot"></div>
-                    <div class="small-text">Personal</div>
+                    <div class="small-text">Health</div>
                   </div>
                 </a>
               </div>
@@ -701,44 +891,47 @@
           <div class="single-blog-post w-dyn-list">
             <div role="list" class="single-blog-post w-dyn-items">
               <div role="listitem" class="single-blog-post-item w-dyn-item">
-                <a href="404.html" class="single-blog-post-item-inner w-inline-block">
+                <a data-w-id="2d24332d-3311-6393-6b28-4e6e6047b71f" href="404.html"
+                  class="single-blog-post-item-inner w-inline-block">
                   <div class="slide-image-wrapper">
-                    <img
+                    <img alt="" loading="lazy" data-w-id="2d24332d-3311-6393-6b28-4e6e6047b721"
                       src="assets/images/img-post2.webp"
-                      loading="lazy" alt=""
+                      sizes="(max-width: 479px) 61vw, (max-width: 767px) 49vw, (max-width: 991px) 383.1875px, (max-width: 1439px) 28vw, (max-width: 1919px) 383.1875px, 27vw"
                       class="image" />
                   </div>
                   <div class="single-blog-heading">
-                    <div class="big-text">Quis fringilla</div>
+                    <div class="big-text">Global Summit Agrees on Ocean Protection</div>
                   </div>
                   <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
-                    <div style="background-color:#ffe603" class="category-dot"></div>
-                    <div class="small-text">Personal</div>
+                    <div class="small-text">4/13/2026</div>
+                    <div style="background-color:#fb6410" class="category-dot"></div>
+                    <div class="small-text">Environment</div>
                   </div>
                 </a>
               </div>
             </div>
           </div>
         </div>
+        
         <div class="slide w-slide">
           <div class="single-blog-post w-dyn-list">
             <div role="list" class="single-blog-post w-dyn-items">
               <div role="listitem" class="single-blog-post-item w-dyn-item">
-                <a href="404.html" class="single-blog-post-item-inner w-inline-block">
+                <a data-w-id="4da8f0e6-6630-907f-af08-4fddf45b523c" href="404.html"
+                  class="single-blog-post-item-inner w-inline-block">
                   <div class="slide-image-wrapper">
-                    <img
+                    <img alt="" loading="lazy" data-w-id="4da8f0e6-6630-907f-af08-4fddf45b523e"
                       src="assets/images/img-post3.webp"
-                      loading="lazy" alt=""
+                      sizes="(max-width: 479px) 60vw, (max-width: 767px) 49vw, (max-width: 991px) 313.609375px, (max-width: 1439px) 28vw, (max-width: 1919px) 313.609375px, 22vw"
                       class="image" />
                   </div>
                   <div class="single-blog-heading">
-                    <div class="big-text">Mauris suspendis</div>
+                    <div class="big-text">Inflation Rates Hit Five-Year Low</div>
                   </div>
                   <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
+                    <div class="small-text">4/12/2026</div>
                     <div style="background-color:#fb6410" class="category-dot"></div>
-                    <div class="small-text">Lifestyle</div>
+                    <div class="small-text">Economy</div>
                   </div>
                 </a>
               </div>
@@ -749,20 +942,21 @@
           <div class="single-blog-post w-dyn-list">
             <div role="list" class="single-blog-post w-dyn-items">
               <div role="listitem" class="single-blog-post-item w-dyn-item">
-                <a href="404.html" class="single-blog-post-item-inner w-inline-block">
+                <a data-w-id="3ee16d71-dee6-a04e-0a3e-d9dcd2481def" href="404.html"
+                  class="single-blog-post-item-inner w-inline-block">
                   <div class="slide-image-wrapper">
-                    <img
+                    <img alt="" loading="lazy" data-w-id="3ee16d71-dee6-a04e-0a3e-d9dcd2481df1"
                       src="assets/images/img-post4.webp"
-                      loading="lazy" alt=""
+                      sizes="(max-width: 479px) 60vw, (max-width: 767px) 49vw, (max-width: 991px) 294.140625px, (max-width: 1439px) 28vw, (max-width: 1919px) 294.140625px, 21vw"
                       class="image" />
                   </div>
                   <div class="single-blog-heading">
-                    <div class="big-text">Magna dictum</div>
+                    <div class="big-text">Mars Rover Discovers Subsurface Ice</div>
                   </div>
                   <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
+                    <div class="small-text">4/11/2026</div>
                     <div style="background-color:#fb6410" class="category-dot"></div>
-                    <div class="small-text">Lifestyle</div>
+                    <div class="small-text">Space</div>
                   </div>
                 </a>
               </div>
@@ -773,44 +967,46 @@
           <div class="single-blog-post w-dyn-list">
             <div role="list" class="single-blog-post w-dyn-items">
               <div role="listitem" class="single-blog-post-item w-dyn-item">
-                <a href="404.html" class="single-blog-post-item-inner w-inline-block">
+                <a data-w-id="5d482baa-2cc4-b442-21ec-3cab91330422" href="404.html"
+                  class="single-blog-post-item-inner w-inline-block">
                   <div class="slide-image-wrapper">
-                    <img
-                      src="assets/images/feat_tech.webp"
-                      loading="lazy" alt=""
-                      class="image" />
-                  </div>
-                  <div class="single-blog-heading">
-                    <div class="big-text">Orci cras sed</div>
-                  </div>
-                  <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
-                    <div style="background-color:#fb6410" class="category-dot"></div>
-                    <div class="small-text">Lifestyle</div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="slide w-slide">
-          <div class="single-blog-post w-dyn-list">
-            <div role="list" class="single-blog-post w-dyn-items">
-              <div role="listitem" class="single-blog-post-item w-dyn-item">
-                <a href="404.html" class="single-blog-post-item-inner w-inline-block">
-                  <div class="slide-image-wrapper">
-                    <img
+                    <img alt="" loading="lazy" data-w-id="5d482baa-2cc4-b442-21ec-3cab91330424"
                       src="assets/images/feat_local.webp"
-                      loading="lazy" alt=""
+                      sizes="(max-width: 479px) 60vw, (max-width: 767px) 49vw, (max-width: 991px) 356.375px, (max-width: 1439px) 28vw, (max-width: 1919px) 356.375px, 25vw"
                       class="image" />
                   </div>
                   <div class="single-blog-heading">
-                    <div class="big-text">Vel vit volutpat</div>
+                    <div class="big-text">Historic Museum Opens New Digital Wing</div>
                   </div>
                   <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
+                    <div class="small-text">4/10/2026</div>
                     <div style="background-color:#9500ca" class="category-dot"></div>
-                    <div class="small-text">Fashion</div>
+                    <div class="small-text">Culture</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide w-slide">
+          <div class="single-blog-post w-dyn-list">
+            <div role="list" class="single-blog-post w-dyn-items">
+              <div role="listitem" class="single-blog-post-item w-dyn-item">
+                <a data-w-id="f3bcd285-3ec1-c87d-a3fe-b7d27aff6328" href="404.html"
+                  class="single-blog-post-item-inner w-inline-block">
+                  <div class="slide-image-wrapper">
+                    <img alt="" loading="lazy" data-w-id="f3bcd285-3ec1-c87d-a3fe-b7d27aff632a"
+                      src="assets/images/feat_tech.webp"
+                      sizes="(max-width: 479px) 60vw, (max-width: 767px) 49vw, (max-width: 991px) 337.65625px, (max-width: 1439px) 28vw, (max-width: 1919px) 337.65625px, 24vw"
+                      class="image" />
+                  </div>
+                  <div class="single-blog-heading">
+                    <div class="big-text">New AI Tutors Deployed in Local Schools</div>
+                  </div>
+                  <div class="blog-date-and-category">
+                    <div class="small-text">4/09/2026</div>
+                    <div style="background-color:#9500ca" class="category-dot"></div>
+                    <div class="small-text">Education</div>
                   </div>
                 </a>
               </div>
@@ -819,58 +1015,14 @@
         </div>
       </div>
       <div class="slider-arrow w-slider-arrow-left">
-        <img src="assets/icons/slider_arrow.svg"
+        <img src="https://cdn.prod.website-files.com/629ee874d16ec4817f184442/62a03d8fc79f2476327f02ea_slider_arrow.svg"
           loading="lazy" alt="Arrow Icon" class="slider-arrow-image" />
       </div>
       <div class="slider-arrow right w-slider-arrow-right">
-        <img src="assets/icons/slider_arrow.svg"
+        <img src="https://cdn.prod.website-files.com/629ee874d16ec4817f184442/62a03d8fc79f2476327f02ea_slider_arrow.svg"
           loading="lazy" alt="Arrow Icon" class="slider-arrow-image right" />
       </div>
       <div class="slide-nav w-slider-nav w-round"></div>
-    </div>
-  </div>
-
-  <div class="scene">
-    <div class="bg-typography">
-      <span>TOP</span>
-      <span>PICS</span>
-    </div>
-
-    <div class="galeria-book-3d">
-      <div class="galeria-book-3d__item" style="--i: 0">
-        <img src="assets/images/img-post1.webp" alt="Front 1" />
-        <img src="assets/images/img-post2.webp" alt="Back 1" />
-      </div>
-      <div class="galeria-book-3d__item" style="--i: 1">
-        <img src="assets/images/img-post3.webp" alt="Front 2" />
-        <img src="assets/images/img-post4.webp" alt="Back 2" />
-      </div>
-      <div class="galeria-book-3d__item" style="--i: 2">
-        <img src="assets/images/feat_local.webp" alt="Front 3" />
-        <img src="assets/images/pexels-afhamhmsyri-34021102.webp" alt="Back 3" />
-      </div>
-      <div class="galeria-book-3d__item" style="--i: 3">
-        <img src="assets/images/img-hero.webp" alt="Front 4" />
-        <img src="assets/images/pexels-othmane-ettalbi-2148497459-30374243.webp" alt="Back 4" />
-      </div>
-      <div class="galeria-book-3d__item" style="--i: 4">
-        <img src="assets/images/pexels-alperen-23825952.webp" alt="Front 5" />
-        <img src="assets/images/pexels-thefullonmonet-17609922.webp" alt="Back 5" />
-      </div>
-    </div>
-  </div>
-
-  <!-- ====== CATEGORY FILTER BAR (Migrated from Articles) ====== -->
-  <div class="category-bar" id="category-bar">
-    <div class="category-bar-inner">
-      <button class="cat-btn active" data-cat="all">All</button>
-      <button class="cat-btn" data-cat="local">Local</button>
-      <button class="cat-btn" data-cat="politics">Politics</button>
-      <button class="cat-btn" data-cat="tech">Technology</button>
-      <button class="cat-btn" data-cat="culture">Culture</button>
-      <button class="cat-btn" data-cat="sports">Sports</button>
-      <button class="cat-btn" data-cat="travel">Travel</button>
-      <button class="cat-btn" data-cat="environment">Environment</button>
     </div>
   </div>
 
@@ -975,7 +1127,39 @@
       </div>
     </div>
   </section>
-  <div class="section overflow-hidden no-padding-bottom">
+
+
+  <div class="scene">
+    <div class="bg-typography">
+      <span>TOP</span>
+      <span>PICS</span>
+    </div>
+
+    <div class="galeria-book-3d">
+      <div class="galeria-book-3d__item" style="--i: 0">
+        <img src="assets/images/img-post1.webp" alt="Front 1" />
+        <img src="assets/images/img-post2.webp" alt="Back 1" />
+      </div>
+      <div class="galeria-book-3d__item" style="--i: 1">
+        <img src="assets/images/img-post3.webp" alt="Front 2" />
+        <img src="assets/images/img-post4.webp" alt="Back 2" />
+      </div>
+      <div class="galeria-book-3d__item" style="--i: 2">
+        <img src="assets/images/feat_local.webp" alt="Front 3" />
+        <img src="assets/images/pexels-afhamhmsyri-34021102.webp" alt="Back 3" />
+      </div>
+      <div class="galeria-book-3d__item" style="--i: 3">
+        <img src="assets/images/img-hero.webp" alt="Front 4" />
+        <img src="assets/images/pexels-othmane-ettalbi-2148497459-30374243.webp" alt="Back 4" />
+      </div>
+      <div class="galeria-book-3d__item" style="--i: 4">
+        <img src="assets/images/pexels-alperen-23825952.webp" alt="Front 5" />
+        <img src="assets/images/pexels-thefullonmonet-17609922.webp" alt="Back 5" />
+      </div>
+    </div>
+  </div>
+
+<div class="section overflow-hidden no-padding-bottom">
     <div class="wide-container">
       <div data-w-id="04eebb40-ab4a-8e10-0088-afe594b6bd9b" class="heading-2-wrapper">
         <h2
@@ -1033,12 +1217,12 @@
                       class="image" />
                   </div>
                   <div class="single-blog-heading">
-                    <div class="big-text">Quis fringilla</div>
+                    <div class="big-text">Global Markets Rally Amidst Tech Surge</div>
                   </div>
                   <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
+                    <div class="small-text">4/13/2026</div>
                     <div style="background-color:#ffe603" class="category-dot"></div>
-                    <div class="small-text">Personal</div>
+                    <div class="small-text">Business</div>
                   </div>
                 </a>
               </div>
@@ -1058,12 +1242,12 @@
                       class="image" />
                   </div>
                   <div class="single-blog-heading">
-                    <div class="big-text">Mauris suspendis</div>
+                    <div class="big-text">New Innovations Unveiled at Global Summit</div>
                   </div>
                   <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
+                    <div class="small-text">4/12/2026</div>
                     <div style="background-color:#fb6410" class="category-dot"></div>
-                    <div class="small-text">Lifestyle</div>
+                    <div class="small-text">Technology</div>
                   </div>
                 </a>
               </div>
@@ -1084,12 +1268,12 @@
                       class="image" />
                   </div>
                   <div class="single-blog-heading">
-                    <div class="big-text">Magna dictum</div>
+                    <div class="big-text">Local Team Secures Championship Victory</div>
                   </div>
                   <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
+                    <div class="small-text">4/11/2026</div>
                     <div style="background-color:#fb6410" class="category-dot"></div>
-                    <div class="small-text">Lifestyle</div>
+                    <div class="small-text">Sports</div>
                   </div>
                 </a>
               </div>
@@ -1109,12 +1293,12 @@
                       class="image" />
                   </div>
                   <div class="single-blog-heading">
-                    <div class="big-text">Orci cras sed</div>
+                    <div class="big-text">Breakthrough in Renewable Energy Tech</div>
                   </div>
                   <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
+                    <div class="small-text">4/10/2026</div>
                     <div style="background-color:#fb6410" class="category-dot"></div>
-                    <div class="small-text">Lifestyle</div>
+                    <div class="small-text">Science</div>
                   </div>
                 </a>
               </div>
@@ -1134,12 +1318,12 @@
                       class="image" />
                   </div>
                   <div class="single-blog-heading">
-                    <div class="big-text">Vel vit volutpat</div>
+                    <div class="big-text">Spring Collection Takes Center Stage</div>
                   </div>
                   <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
+                    <div class="small-text">4/09/2026</div>
                     <div style="background-color:#9500ca" class="category-dot"></div>
-                    <div class="small-text">Fashion</div>
+                    <div class="small-text">Entertainment</div>
                   </div>
                 </a>
               </div>
@@ -1159,12 +1343,12 @@
                       class="image" />
                   </div>
                   <div class="single-blog-heading">
-                    <div class="big-text">Nunc eget diam</div>
+                    <div class="big-text">City Council Approves New Transit Plan</div>
                   </div>
                   <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
+                    <div class="small-text">4/08/2026</div>
                     <div style="background-color:#9500ca" class="category-dot"></div>
-                    <div class="small-text">Fashion</div>
+                    <div class="small-text">Politics</div>
                   </div>
                 </a>
               </div>
@@ -1183,6 +1367,7 @@
       <div class="slide-nav w-slider-nav w-round"></div>
     </div>
   </div>
+ 
   <div class="section bottom-line">
     <div class="wide-container">
       <div class="text-info-section-container">
