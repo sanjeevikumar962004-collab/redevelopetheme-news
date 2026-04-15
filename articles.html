@@ -517,15 +517,19 @@
       .preloader-content {
           position: relative;
           display: flex;
-          flex-direction: column;
           align-items: center;
-          gap: 20px;
+          justify-content: center;
+          width: 300px;
+          height: 300px;
       }
       .compass-container {
           width: 180px;
           height: 180px;
-          position: relative;
-          transition: all 0.5s ease;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          transition: opacity 0.5s ease, transform 0.5s ease;
       }
       .compass-svg {
           width: 100%;
@@ -570,13 +574,16 @@
       }
       
       .reveal-brand-wrap {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, calc(-50% + 30px));
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 15px;
           opacity: 0;
-          transform: translateY(30px);
-          transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+          transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1), transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
       }
       .preloader-logo {
           height: 40px;
@@ -641,10 +648,10 @@
                   setTimeout(animateNeedle, 600);
               } else {
                   compass.style.opacity = '0';
-                  compass.style.transform = 'scale(0.8)';
+                  compass.style.transform = 'translate(-50%, -50%) scale(0.8)';
                   setTimeout(() => {
                       revealBrand.style.opacity = '1';
-                      revealBrand.style.transform = 'translateY(0)';
+                      revealBrand.style.transform = 'translate(-50%, -50%)';
                       setTimeout(() => {
                           preloader.classList.add('loaded');
                           document.body.classList.remove('preloader-active');

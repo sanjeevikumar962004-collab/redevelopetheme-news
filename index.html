@@ -519,15 +519,19 @@
       .preloader-content {
           position: relative;
           display: flex;
-          flex-direction: column;
           align-items: center;
-          gap: 20px;
+          justify-content: center;
+          width: 300px;
+          height: 300px;
       }
       .compass-container {
           width: 180px;
           height: 180px;
-          position: relative;
-          transition: all 0.5s ease;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          transition: opacity 0.5s ease, transform 0.5s ease;
       }
       .compass-svg {
           width: 100%;
@@ -572,13 +576,16 @@
       }
       
       .reveal-brand-wrap {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, calc(-50% + 30px));
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 15px;
           opacity: 0;
-          transform: translateY(30px);
-          transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+          transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1), transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
       }
       .preloader-logo {
           height: 40px;
@@ -643,10 +650,10 @@
                   setTimeout(animateNeedle, 600);
               } else {
                   compass.style.opacity = '0';
-                  compass.style.transform = 'scale(0.8)';
+                  compass.style.transform = 'translate(-50%, -50%) scale(0.8)';
                   setTimeout(() => {
                       revealBrand.style.opacity = '1';
-                      revealBrand.style.transform = 'translateY(0)';
+                      revealBrand.style.transform = 'translate(-50%, -50%)';
                       setTimeout(() => {
                           preloader.classList.add('loaded');
                           document.body.classList.remove('preloader-active');
@@ -819,148 +826,9 @@
     </div>
   </div>
 
-  <!-- ====== BIOPICS HEADING ====== -->
-  <div class="section overflow-hidden no-padding-bottom">
-    <div class="wide-container">
-      <div class="heading-2-wrapper">
-        <h2 style="transform:translate3d(0, 0, 0)" class="heading-2 _1st">B</h2>
-        <h2 style="transform:translate3d(0, 0, 0)" class="heading-2 _2nd">I</h2>
-        <h2 style="transform:translate3d(0, 0, 0)" class="heading-2 _3rd">O</h2>
-        <h2 style="transform:translate3d(0, 0, 0)" class="heading-2 _4th">P</h2>
-        <h2 style="transform:translate3d(0, 0, 0)" class="heading-2 _5th">I</h2>
-        <h2 style="transform:translate3d(0, 0, 0)" class="heading-2 _6th">C</h2>
-        <h2 style="transform:translate3d(0, 0, 0)" class="heading-2 _7th">S</h2>
-      </div>
-    </div>
-  </div>
+ 
 
-  <!-- ====== BIO PIC OF STARS SECTION ====== -->
-  <section class="stars-bio-container">
-    <div class="theme-toggle-sb" id="theme-toggle-sb"></div>
-
-    <svg style="position: absolute; width: 100%; height: 100%; z-index: 0;" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <pattern id="dottedGrid" width="30" height="30" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="1" fill="rgba(0,0,0,0.15)" />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#dottedGrid)" />
-    </svg>
-
-    <div class="book-title-overlay">
-      <div class="book-title-text">Meryl Streep</div>
-    </div>
-
-    <div class="shelf-container">
-      <div class="book-shadow-sb">
-        <div class="book-shadow__item-sb"></div>
-        <div class="book-shadow__item-sb side"></div>
-        <div class="book-shadow__item-sb"></div>
-        <div class="book-shadow__item-sb"></div>
-      </div>
-
-      <div class="shelf-sb"></div>
-
-      <div class="books-wrapper">
-        <div class="books__item">
-          <div class="books__container">
-            <div class="books__cover">
-              <div class="books__back-cover"></div>
-              <div class="books__inside">
-                <div class="books__page"></div>
-                <div class="books__page"></div>
-                <div class="books__page"></div>
-              </div>
-              <div class="books__image">
-                <img src="assets/images/stars/leo.png" alt="Leonardo DiCaprio">
-                <div class="books__effect"></div>
-                <div class="books__light"></div>
-              </div>
-              <div class="books__hitbox" data-book-index="0" data-book-title="Leonardo DiCaprio"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="side-book-sb" data-book-index="side" data-book-title="Scarlett Johansson">
-          <div class="side-book__title-sb">Scarlett Johansson</div>
-          <div class="side-book__decoration-sb"></div>
-          <div class="side-book__decoration-sb"></div>
-        </div>
-
-        <div class="books__item">
-          <div class="books__container">
-            <div class="books__cover">
-              <div class="books__back-cover"></div>
-              <div class="books__inside">
-                <div class="books__page"></div>
-                <div class="books__page"></div>
-                <div class="books__page"></div>
-              </div>
-              <div class="books__image">
-                <img src="assets/images/stars/tom.png" alt="Tom Hanks">
-                <div class="books__effect"></div>
-                <div class="books__light"></div>
-              </div>
-              <div class="books__hitbox" data-book-index="1" data-book-title="Tom Hanks"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="books__item" id="default-open-book-sb">
-          <div class="books__container">
-            <div class="books__cover">
-              <div class="books__back-cover"></div>
-              <div class="books__inside">
-                <div class="books__page"></div>
-                <div class="books__page"></div>
-                <div class="books__page"></div>
-              </div>
-              <div class="books__image">
-                <img src="assets/images/stars/meryl.png" alt="Meryl Streep">
-                <div class="books__effect"></div>
-                <div class="books__light"></div>
-              </div>
-              <div class="books__hitbox" data-book-index="2" data-book-title="Meryl Streep"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-descriptions-sb">
-        <div class="book-description-sb" data-book-index="0">
-          <h3>Leonardo DiCaprio: A Cinema Icon</h3>
-          <div class="author-sb">by Biography Series</div>
-          <div class="lines-animation-sb">
-            <p>From a child star to an Academy Award-winning powerhouse, Leonardo DiCaprio has defined modern cinema. This biography explores his rise to fame, his environmental activism, and his transformation into one of the most respected actors of our time.</p>
-          </div>
-        </div>
-
-        <div class="book-description-sb" data-book-index="side">
-          <h3>Scarlett Johansson</h3>
-          <div class="author-sb">Hollywood Journey</div>
-          <div class="lines-animation-sb">
-            <p>Her Journey from Child Star to Global Icon. Scarlett Johansson has navigated through diverse genres, from indie gems like 'Lost in Translation' to blockbuster roles in the Marvel Cinematic Universe, proving her immense range and star power.</p>
-          </div>
-        </div>
-
-        <div class="book-description-sb" data-book-index="1">
-          <h3>Tom Hanks: America's Actor</h3>
-          <div class="author-sb">by Hollywood Legends</div>
-          <div class="lines-animation-sb">
-            <p>Explore the life and career of Tom Hanks, the everyman hero of Hollywood. With two Oscars and countless unforgettable roles, Hanks' story is one of talent, humility, and enduring success as a global ambassador of cinema.</p>
-          </div>
-        </div>
-
-        <div class="book-description-sb active" data-book-index="2">
-          <h3>Meryl Streep: Master of the Craft</h3>
-          <div class="author-sb">by Film Portraits</div>
-          <div class="lines-animation-sb">
-            <p>Widely regarded as the greatest actress of her generation, Meryl Streep has mastered nearly every role she's touched. This book delves into her training, her legendary versatility, and her record-breaking career on stage and screen.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  
  
 
   <div class="section overflow-hidden no-padding-bottom">
@@ -1171,6 +1039,173 @@
       <div class="slide-nav w-slider-nav w-round"></div>
     </div>
   </div>
+
+   <!-- ====== BIOPICS HEADING ====== -->
+  <div class="section overflow-hidden no-padding-bottom">
+    <div class="wide-container">
+      <div id="biopics-heading-wrapper" class="heading-2-wrapper">
+        <h2 style="-webkit-transform:translate3d(0, 140%, 0);transform:translate3d(0, 140%, 0)" class="heading-2 _1st">B</h2>
+        <h2 style="-webkit-transform:translate3d(0, 140%, 0);transform:translate3d(0, 140%, 0)" class="heading-2 _2nd">I</h2>
+        <h2 style="-webkit-transform:translate3d(0, 140%, 0);transform:translate3d(0, 140%, 0)" class="heading-2 _3rd">O</h2>
+        <h2 style="-webkit-transform:translate3d(0, 140%, 0);transform:translate3d(0, 140%, 0)" class="heading-2 _4th">P</h2>
+        <h2 style="-webkit-transform:translate3d(0, 140%, 0);transform:translate3d(0, 140%, 0)" class="heading-2 _5th">I</h2>
+        <h2 style="-webkit-transform:translate3d(0, 140%, 0);transform:translate3d(0, 140%, 0)" class="heading-2 _6th">C</h2>
+        <h2 style="-webkit-transform:translate3d(0, 140%, 0);transform:translate3d(0, 140%, 0)" class="heading-2 _7th">S</h2>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      var wrapper = document.getElementById('biopics-heading-wrapper');
+      if (!wrapper) return;
+      var letters = wrapper.querySelectorAll('h2');
+      var delays = [0, 60, 120, 180, 240, 300, 360];
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            letters.forEach(function(letter, i) {
+              setTimeout(function() {
+                letter.style.transition = 'transform 0.8s cubic-bezier(0.19, 1, 0.22, 1)';
+                letter.style.transform = 'translate3d(0, 0, 0)';
+                letter.style.webkitTransform = 'translate3d(0, 0, 0)';
+              }, delays[i]);
+            });
+            observer.unobserve(wrapper);
+          }
+        });
+      }, { threshold: 0.1 });
+      observer.observe(wrapper);
+    })();
+  </script>
+
+
+  <!-- ====== BIO PIC OF STARS SECTION ====== -->
+  <section class="stars-bio-container">
+    <div class="theme-toggle-sb" id="theme-toggle-sb"></div>
+
+    <svg style="position: absolute; width: 100%; height: 100%; z-index: 0;" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="dottedGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1" fill="rgba(0,0,0,0.15)" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dottedGrid)" />
+    </svg>
+
+    <div class="book-title-overlay">
+      <div class="book-title-text">Meryl Streep</div>
+    </div>
+
+    <div class="shelf-container">
+      <div class="book-shadow-sb">
+        <div class="book-shadow__item-sb"></div>
+        <div class="book-shadow__item-sb side"></div>
+        <div class="book-shadow__item-sb"></div>
+        <div class="book-shadow__item-sb"></div>
+      </div>
+
+      <div class="shelf-sb"></div>
+
+      <div class="books-wrapper">
+        <div class="books__item">
+          <div class="books__container">
+            <div class="books__cover">
+              <div class="books__back-cover"></div>
+              <div class="books__inside">
+                <div class="books__page"></div>
+                <div class="books__page"></div>
+                <div class="books__page"></div>
+              </div>
+              <div class="books__image">
+                <img src="assets/images/stars/leo.webp" alt="Leonardo DiCaprio">
+                <div class="books__effect"></div>
+                <div class="books__light"></div>
+              </div>
+              <div class="books__hitbox" data-book-index="0" data-book-title="Leonardo DiCaprio"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-book-sb" data-book-index="side" data-book-title="Scarlett Johansson">
+          <div class="side-book__title-sb">Scarlett Johansson</div>
+          <div class="side-book__decoration-sb"></div>
+          <div class="side-book__decoration-sb"></div>
+        </div>
+
+        <div class="books__item">
+          <div class="books__container">
+            <div class="books__cover">
+              <div class="books__back-cover"></div>
+              <div class="books__inside">
+                <div class="books__page"></div>
+                <div class="books__page"></div>
+                <div class="books__page"></div>
+              </div>
+              <div class="books__image">
+                <img src="assets/images/stars/tom.webp" alt="Tom Hanks">
+                <div class="books__effect"></div>
+                <div class="books__light"></div>
+              </div>
+              <div class="books__hitbox" data-book-index="1" data-book-title="Tom Hanks"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="books__item" id="default-open-book-sb">
+          <div class="books__container">
+            <div class="books__cover">
+              <div class="books__back-cover"></div>
+              <div class="books__inside">
+                <div class="books__page"></div>
+                <div class="books__page"></div>
+                <div class="books__page"></div>
+              </div>
+              <div class="books__image">
+                <img src="assets/images/stars/meryl.webp" alt="Meryl Streep">
+                <div class="books__effect"></div>
+                <div class="books__light"></div>
+              </div>
+              <div class="books__hitbox" data-book-index="2" data-book-title="Meryl Streep"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-descriptions-sb">
+        <div class="book-description-sb" data-book-index="0">
+          <h3>Leonardo DiCaprio: A Cinema Icon</h3>
+          <div class="author-sb">by Biography Series</div>
+          <div class="lines-animation-sb">
+            <p>From a child star to an Academy Award-winning powerhouse, Leonardo DiCaprio has defined modern cinema. This biography explores his rise to fame, his environmental activism, and his transformation into one of the most respected actors of our time.</p>
+          </div>
+        </div>
+
+        <div class="book-description-sb" data-book-index="side">
+          <h3>Scarlett Johansson</h3>
+          <div class="author-sb">Hollywood Journey</div>
+          <div class="lines-animation-sb">
+            <p>Her Journey from Child Star to Global Icon. Scarlett Johansson has navigated through diverse genres, from indie gems like 'Lost in Translation' to blockbuster roles in the Marvel Cinematic Universe, proving her immense range and star power.</p>
+          </div>
+        </div>
+
+        <div class="book-description-sb" data-book-index="1">
+          <h3>Tom Hanks: America's Actor</h3>
+          <div class="author-sb">by Hollywood Legends</div>
+          <div class="lines-animation-sb">
+            <p>Explore the life and career of Tom Hanks, the everyman hero of Hollywood. With two Oscars and countless unforgettable roles, Hanks' story is one of talent, humility, and enduring success as a global ambassador of cinema.</p>
+          </div>
+        </div>
+
+        <div class="book-description-sb active" data-book-index="2">
+          <h3>Meryl Streep: Master of the Craft</h3>
+          <div class="author-sb">by Film Portraits</div>
+          <div class="lines-animation-sb">
+            <p>Widely regarded as the greatest actress of her generation, Meryl Streep has mastered nearly every role she's touched. This book delves into her training, her legendary versatility, and her record-breaking career on stage and screen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ====== ARTICLE GRID (Migrated from Articles) ====== -->
   <section class="grid-section" id="latest">
@@ -1538,192 +1573,12 @@
   </div>
 
   
-  <div class="section overflow-hidden no-padding-bottom">
-    <div class="wide-container">
-      <div data-w-id="f260abc1-80c1-e73c-934e-5ed9869f90ad" class="heading-2-wrapper">
-        <h2
-          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
-          class="heading-2 _1st">p</h2>
-        <h2
-          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
-          class="heading-2 _2nd">o</h2>
-        <h2
-          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
-          class="heading-2 _3rd">p</h2>
-        <h2
-          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
-          class="heading-2 _4th">u</h2>
-        <h2
-          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
-          class="heading-2 _5th">l</h2>
-        <h2
-          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
-          class="heading-2 _6th">a</h2>
-        <h2
-          style="-webkit-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 140%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
-          class="heading-2 _7th">r</h2>
-      </div>
-    </div>
-    <div data-delay="4000" data-animation="slide" class="slider w-slider" data-autoplay="false" data-easing="ease"
-      data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0" data-nav-spacing="0"
-      data-duration="600" data-infinite="true">
-      <div data-w-id="f260abc1-80c1-e73c-934e-5ed9869f90bf" class="mask w-slider-mask">
-        <div class="slide w-slide">
-          <div class="single-blog-post w-dyn-list">
-            <div role="list" class="single-blog-post w-dyn-items">
-              <div role="listitem" class="single-blog-post-item w-dyn-item">
-                <a href="/blog-posts/rhoncus-nullam" class="single-blog-post-item-inner w-inline-block">
-                  <div class="slide-image-wrapper">
-                    <img
-                      src="assets/images/img-post1.webp"
-                      loading="lazy" alt=""
-                      class="image" />
-                  </div>
-                  <div class="single-blog-heading">
-                    <div class="big-text">Rhoncus nullam</div>
-                  </div>
-                  <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
-                    <div style="background-color:#ffe603" class="category-dot"></div>
-                    <div class="small-text">Personal</div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="slide w-slide">
-          <div class="single-blog-post w-dyn-list">
-            <div role="list" class="single-blog-post w-dyn-items">
-              <div role="listitem" class="single-blog-post-item w-dyn-item">
-                <a href="404.html" class="single-blog-post-item-inner w-inline-block">
-                  <div class="slide-image-wrapper">
-                    <img
-                      src="assets/images/img-post2.webp"
-                      loading="lazy" alt=""
-                      class="image" />
-                  </div>
-                  <div class="single-blog-heading">
-                    <div class="big-text">Nam pellentesque</div>
-                  </div>
-                  <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
-                    <div style="background-color:#ffe603" class="category-dot"></div>
-                    <div class="small-text">Personal</div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="slide w-slide">
-          <div class="single-blog-post w-dyn-list">
-            <div role="list" class="single-blog-post w-dyn-items">
-              <div role="listitem" class="single-blog-post-item w-dyn-item">
-                <a href="/blog-posts/tellus-viverra" class="single-blog-post-item-inner w-inline-block">
-                  <div class="slide-image-wrapper">
-                    <img
-                      src="assets/images/img-post3.webp"
-                      loading="lazy" alt=""
-                      class="image" />
-                  </div>
-                  <div class="single-blog-heading">
-                    <div class="big-text">Tellus viverra</div>
-                  </div>
-                  <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
-                    <div style="background-color:#9500ca" class="category-dot"></div>
-                    <div class="small-text">Fashion</div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="slide w-slide">
-          <div class="single-blog-post w-dyn-list">
-            <div role="list" class="single-blog-post w-dyn-items">
-              <div role="listitem" class="single-blog-post-item w-dyn-item">
-                <a href="/blog-posts/commodo-dolor" class="single-blog-post-item-inner w-inline-block">
-                  <div class="slide-image-wrapper">
-                    <img
-                      src="assets/images/img-post4.webp"
-                      loading="lazy" alt=""
-                      class="image" />
-                  </div>
-                  <div class="single-blog-heading">
-                    <div class="big-text">Commodo dolor</div>
-                  </div>
-                  <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
-                    <div style="background-color:#2869e7" class="category-dot"></div>
-                    <div class="small-text">Travel</div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="slide w-slide">
-          <div class="single-blog-post w-dyn-list">
-            <div role="list" class="single-blog-post w-dyn-items">
-              <div role="listitem" class="single-blog-post-item w-dyn-item">
-                <a href="/blog-posts/vitae-nunc" class="single-blog-post-item-inner w-inline-block">
-                  <div class="slide-image-wrapper">
-                    <img
-                      src="assets/images/feat_local.webp"
-                      loading="lazy" alt=""
-                      class="image" />
-                  </div>
-                  <div class="single-blog-heading">
-                    <div class="big-text">Vitae nunc</div>
-                  </div>
-                  <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
-                    <div style="background-color:#2869e7" class="category-dot"></div>
-                    <div class="small-text">Travel</div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="slide w-slide">
-          <div class="single-blog-post w-dyn-list">
-            <div role="list" class="single-blog-post w-dyn-items">
-              <div role="listitem" class="single-blog-post-item w-dyn-item">
-                <a href="/blog-posts/lacinia-bibendum" class="single-blog-post-item-inner w-inline-block">
-                  <div class="slide-image-wrapper">
-                    <img
-                      src="assets/images/feat_tech.webp"
-                      loading="lazy" alt=""
-                      class="image" />
-                  </div>
-                  <div class="single-blog-heading">
-                    <div class="big-text">Lacinia bibendum</div>
-                  </div>
-                  <div class="blog-date-and-category">
-                    <div class="small-text">6/7/2022</div>
-                    <div style="background-color:#2869e7" class="category-dot"></div>
-                    <div class="small-text">Travel</div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="slider-arrow w-slider-arrow-left">
-        <img src="assets/images/slider_arrow.svg"
-          loading="lazy" alt="Arrow Icon" class="slider-arrow-image" />
-      </div>
-      <div class="slider-arrow right w-slider-arrow-right">
-        <img src="https://cdn.prod.website-files.com/629ee874d16ec4817f184442/62a03d8fc79f2476327f02ea_slider_arrow.svg"
-          loading="lazy" alt="Arrow Icon" class="slider-arrow-image right" />
-      </div>
-      <div class="slide-nav w-slider-nav w-round"></div>
-    </div>
-  </div>
+
+
+
+
+
+  
   
   <div data-w-id="bfd7f47a-3a86-2950-3ba2-a8a3697b7d7a" class="section overflow-hidden for-infinite-words">
     <a data-w-id="d59cee9f-4230-4cd9-a27b-5f795f01a678" href="404.html"
