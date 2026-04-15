@@ -1,0 +1,581 @@
+/* Stars Bio Section Styles */
+:root {
+  --sb-bg-color: #ffffff;
+  --sb-text-color: #333333;
+  --sb-title-color: #000000;
+  --sb-overlay-text-color: rgba(0, 0, 0, 0.05);
+  --sb-shelf-bg: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
+  --sb-shelf-edge-top: rgba(255, 255, 255, 0.01);
+  --sb-shelf-edge-bottom: rgba(0, 0, 0, 0.1);
+  --sb-book-back-cover: #111111;
+  --sb-book-page: #ffffff;
+  --sb-book-page-border: rgba(0, 0, 0, 0.2);
+  --sb-book-shadow: rgba(0, 0, 0, 0.15);
+  --sb-book-shadow-strong: rgba(0, 0, 0, 0.35);
+  --sb-side-book-bg: linear-gradient(to right, #444 0%, #666 50%, #444 100%);
+  --sb-side-book-text: #f0f0f0;
+  --sb-side-book-decoration: rgba(255, 255, 255, 0.3);
+  --sb-toggle-dot: #333333;
+}
+
+.dark-mode-stars {
+  --sb-bg-color: #121212;
+  --sb-text-color: #e0e0e0;
+  --sb-title-color: #ffffff;
+  --sb-overlay-text-color: rgba(255, 255, 255, 0.05);
+  --sb-shelf-bg: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
+  --sb-shelf-edge-top: rgba(255, 255, 255, 0.03); 
+  --sb-shelf-edge-bottom: rgba(0, 0, 0, 0.3);
+  --sb-book-back-cover: #ffffff; 
+  --sb-book-page: #ffffff; 
+  --sb-book-page-border: rgba(0, 0, 0, 0.2);
+  --sb-book-shadow: rgba(0, 0, 0, 0.3);
+  --sb-book-shadow-strong: rgba(0, 0, 0, 0.5);
+  --sb-side-book-bg: linear-gradient(to right, #222 0%, #444 50%, #222 100%);
+  --sb-side-book-text: #ffffff;
+  --sb-side-book-decoration: rgba(255, 255, 255, 0.2);
+  --sb-toggle-dot: #ffffff;
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk";
+  font-style: normal;
+  font-weight: 800;
+  src: local("Cabinet Grotesk"),
+    url("https://fonts.cdnfonts.com/s/85514/CabinetGrotesk-Extrabold.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Cabinet Grotesk"),
+    url("https://fonts.cdnfonts.com/s/85514/CabinetGrotesk-Medium.woff")
+      format("woff");
+}
+
+.stars-bio-container {
+  position: relative;
+  background-color: var(--sb-bg-color);
+  margin: 0;
+  padding: 0;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: "Cabinet Grotesk", sans-serif;
+  letter-spacing: -0.02em;
+  color: var(--sb-text-color);
+  transition: background-color 0.5s ease, color 0.5s ease;
+  border-bottom: 1px solid #000;
+}
+
+/* Theme toggle dot */
+.theme-toggle-sb {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--sb-toggle-dot);
+  cursor: pointer;
+  z-index: 100;
+  transition: background-color 0.3s ease;
+}
+
+/* Big centered text that appears on hover */
+.book-title-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.book-title-text {
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 800;
+  font-size: 15rem;
+  color: var(--sb-overlay-text-color);
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
+  max-width: 90vw;
+  transition: color 0.5s ease;
+}
+
+.shelf-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+}
+
+.shelf-sb {
+  display: block;
+  position: absolute;
+  bottom: 270px;
+  width: 100%;
+  max-width: 1000px;
+  height: 15px;
+  background: var(--sb-shelf-bg);
+  border-radius: 1px;
+  z-index: 20;
+  box-shadow:
+    0px -1px 1px rgba(255, 255, 255, 0.15),
+    0px 2px 3px rgba(0, 0, 0, 0.12),
+    0px 5px 10px rgba(0, 0, 0, 0.08),
+    0px 15px 20px rgba(0, 0, 0, 0.06),
+    0px 25px 30px rgba(0, 0, 0, 0.04),
+    0px 40px 60px rgba(0, 0, 0, 0.2),
+    0px 60px 80px rgba(0, 0, 0, 0.12);
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.shelf-sb:after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--sb-shelf-edge-bottom);
+  transition: background-color 0.5s ease;
+}
+
+.shelf-sb:before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--sb-shelf-edge-top);
+  transition: background-color 0.5s ease;
+}
+
+.books-wrapper {
+  position: absolute;
+  bottom: 287px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 3.5rem;
+  z-index: 10;
+}
+
+.books__item {
+  text-align: center;
+  cursor: default;
+  height: 220px;
+}
+
+.books__container {
+  position: relative;
+  width: 160px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.books__cover {
+  position: relative;
+  will-change: transform;
+  height: 100%;
+}
+
+.books__hitbox {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.books__back-cover {
+  position: absolute;
+  width: 96%;
+  height: 96%;
+  top: 2%;
+  left: 2%;
+  background: var(--sb-book-back-cover);
+  border-radius: 0 6px 6px 0;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  z-index: -10;
+  transition: background 0.5s ease;
+}
+
+.books__inside {
+  position: absolute;
+  width: 90%;
+  height: 94%;
+  top: 3%;
+  left: 5%;
+  z-index: 0;
+}
+
+.books__page {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 98%;
+  height: 100%;
+  background: var(--sb-book-page);
+  border: 1px solid var(--sb-book-page-border);
+  border-radius: 0 6px 6px 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transform-origin: right center;
+  z-index: -5;
+  transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+.books__image {
+  line-height: 0;
+  position: relative;
+  border-radius: 2px 6px 6px 2px;
+  height: 100%;
+  box-shadow: var(--sb-book-shadow) 10px -5px 20px,
+    var(--sb-book-shadow) 20px 0px 30px;
+  transform-origin: left center;
+  cursor: pointer;
+  will-change: transform, box-shadow;
+  z-index: 10;
+  transition: box-shadow 0.5s ease;
+}
+
+.books__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px 6px 6px 2px;
+}
+
+.books__effect {
+  position: absolute;
+  width: 24px;
+  height: 100%;
+  margin-left: 12px;
+  top: 0;
+  border-left: 2px solid rgba(0, 0, 0, 0.08);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform-origin: left center;
+  z-index: 5;
+  pointer-events: none;
+  will-change: margin-left;
+}
+
+.books__light {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 2px 6px 6px 2px;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.15;
+  transform-origin: left center;
+  z-index: 4;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  will-change: opacity;
+}
+
+.side-book-sb {
+  height: 220px;
+  width: 30px;
+  position: relative;
+  cursor: pointer;
+  background: var(--sb-side-book-bg);
+  border-radius: 2px;
+  box-shadow: var(--sb-book-shadow) 5px -3px 10px, var(--sb-book-shadow) 10px 0px 15px;
+  transform-origin: bottom center;
+  will-change: transform, box-shadow;
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.side-book__title-sb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  color: var(--sb-side-book-text);
+  font-size: 10px;
+  padding: 5px 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.5s ease;
+}
+
+.side-book__decoration-sb {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background-color: var(--sb-side-book-decoration);
+  transition: background-color 0.5s ease;
+}
+
+.side-book__decoration-sb:nth-child(2) {
+  top: auto;
+  bottom: 20px;
+}
+
+.book-shadow-sb {
+  position: absolute;
+  bottom: 285px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 3.5rem;
+  z-index: 15;
+}
+
+.book-shadow__item-sb {
+  width: 120px;
+  height: 2px;
+  background: radial-gradient(
+    ellipse at center,
+    var(--sb-book-shadow) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  border-radius: 50%;
+  will-change: width, opacity;
+  transition: background 0.5s ease;
+}
+
+.book-shadow__item-sb.side {
+  width: 25px;
+}
+
+.book-descriptions-sb {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 640px;
+  z-index: 5;
+  height: 200px;
+}
+
+.book-description-sb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--sb-text-color);
+  transition: opacity 0.3s ease, visibility 0.3s ease, color 0.5s ease;
+  text-transform: none; /* Override parent text-transform */
+}
+
+.book-description-sb.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.book-description-sb h3 {
+  font-weight: 800;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--sb-title-color);
+  transition: color 0.5s ease;
+}
+
+.book-description-sb .author-sb {
+  font-style: italic;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+  text-transform: none;
+}
+
+.book-description-sb p {
+  margin-bottom: 0.75rem;
+}
+
+.lines-animation-sb {
+  overflow: hidden;
+}
+
+.sb-line {
+  overflow: hidden !important;
+  display: block;
+}
+
+.sb-line .line-inner {
+  display: block;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .stars-bio-container {
+    height: 700px;
+  }
+  
+  .book-title-text {
+    font-size: 5rem;
+  }
+
+  .shelf-container {
+    height: 400px;
+  }
+
+  .books-wrapper {
+    bottom: 250px;
+    gap: 1rem;
+  }
+
+  .books__container {
+    width: 90px;
+  }
+
+  .side-book-sb {
+    width: 20px;
+    height: 180px;
+  }
+
+  .side-book__title-sb {
+    font-size: 8px;
+  }
+
+  .books__item {
+    height: 180px;
+  }
+
+  .shelf-sb {
+    bottom: 235px;
+    max-width: 90%;
+  }
+
+  .book-shadow-sb {
+    bottom: 248px;
+    gap: 1rem;
+  }
+
+  .book-shadow__item-sb {
+    width: 80px;
+  }
+
+  .book-shadow__item-sb.side {
+    width: 20px;
+  }
+
+  .book-descriptions-sb {
+    height: 180px;
+    padding: 0 20px;
+    bottom: 20px;
+    max-width: 100%;
+  }
+
+  .book-description-sb h3 {
+    font-size: 1.2rem;
+  }
+
+  .book-description-sb p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .book-description-sb .author-sb {
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stars-bio-container {
+    height: 650px;
+  }
+
+  .book-title-text {
+    font-size: 3.5rem;
+  }
+
+  .shelf-container {
+    height: 380px;
+  }
+
+  .books-wrapper {
+    bottom: 210px;
+    gap: 0.8rem;
+  }
+
+  .books__container {
+    width: 70px;
+  }
+
+  .side-book-sb {
+    width: 15px;
+    height: 140px;
+  }
+
+  .books__item {
+    height: 140px;
+  }
+
+  .shelf-sb {
+    bottom: 200px;
+  }
+
+  .book-shadow-sb {
+    bottom: 208px;
+    gap: 0.8rem;
+  }
+
+  .book-shadow__item-sb {
+    width: 60px;
+  }
+  
+  .book-description-sb h3 {
+    font-size: 1rem;
+  }
+  
+  .book-description-sb p {
+    font-size: 0.75rem;
+  }
+}
